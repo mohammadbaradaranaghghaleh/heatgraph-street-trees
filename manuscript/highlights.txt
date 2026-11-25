@@ -1,6 +1,6 @@
 Highlights
-- Where street trees go matters as much as how many are planted
+- Where street trees go can matter as much as how many are planted
 - A quarter to half as many well-placed trees matched the largest random planting
 - Planting the sunniest, busiest streets gave only 46–85% of model-based cooling
-- Greedy allocation on crown-shadow features reached the cooling optimum
+- Greedy allocation on shading features matched the best cooling of any tested search
 - Equity gains came mostly from cooling the least exposed district less

@@ -261,7 +261,8 @@ ANCHORS = [
     f"with per-segment correlations of {f2(F['corr_gnn_solweig_range'][0])}--{f2(F['corr_gnn_solweig_range'][1])}",
     f"underestimated it by {F['underestimate_engine_pct_range'][0]:.0f}--{F['underestimate_engine_pct_range'][1]:.0f}\\% and "
     f"{F['underestimate_gnn_pct_range'][0]:.0f}--{F['underestimate_gnn_pct_range'][1]:.0f}\\%",
-    f"The independent model found {F['underestimate_engine_pct_range'][0]:.0f}--{F['underestimate_engine_pct_range'][1]:.0f}\\% \\emph{{more}} cooling",
+    # "more" is SOLWEIG relative to the engine (SOLWEIG / engine - 1), not the engine's underestimate
+    f"The independent model found {F['solweig_more_than_engine_pct_range'][0]:.0f}--{F['solweig_more_than_engine_pct_range'][1]:.0f}\\% \\emph{{more}} cooling",
 ]
 for a in ANCHORS:
     check(a in body, f"anchored claim not found verbatim: '{a[:90]}'")

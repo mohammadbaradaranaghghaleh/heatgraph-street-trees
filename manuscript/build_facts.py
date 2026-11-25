@@ -108,6 +108,10 @@ def main():
                for n, d in V["designs"].items() if n != "none"]
     F["underestimate_engine_pct_range"] = [100 * min(under_e), 100 * max(under_e)]
     F["underestimate_gnn_pct_range"] = [100 * min(under_g), 100 * max(under_g)]
+    # the same comparison seen from SOLWEIG: how much MORE cooling it found than the engine
+    more = [d["solweig"]["dose_reduction_pct"] / d["engine"]["dose_reduction_pct"] - 1
+            for n, d in V["designs"].items() if n != "none"]
+    F["solweig_more_than_engine_pct_range"] = [100 * min(more), 100 * max(more)]
     a = [d["agreement"] for n, d in V["designs"].items() if n != "none"]
     F["corr_gnn_solweig_range"] = [min(x["corr_gnn_vs_solweig"] for x in a), max(x["corr_gnn_vs_solweig"] for x in a)]
     F["corr_engine_solweig_range"] = [min(x["corr_engine_vs_solweig"] for x in a), max(x["corr_engine_vs_solweig"] for x in a)]

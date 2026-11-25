@@ -102,7 +102,7 @@ def bib_from_crossref(key, m):
 
 def bib_from_arxiv(key, a, doi=None, note=None):
     f = {"author": " and ".join(a["authors"]), "title": "{" + tex_escape(a["title"]) + "}", "year": a["year"],
-         "eprint": a["id"], "archiveprefix": "arXiv", "doi": doi or f"10.48550/arXiv.{a['id']}",
+         "doi": doi or f"10.48550/arXiv.{a['id']}",
          "howpublished": "arXiv preprint arXiv:" + a["id"], "note": note}
     return "misc", f
 
