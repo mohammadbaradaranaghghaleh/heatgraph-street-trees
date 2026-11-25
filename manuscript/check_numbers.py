@@ -258,7 +258,7 @@ ANCHORS = [
     f"came within {pct(100 * (1 - r_['change_mae'] / lin['test_city']['change_mae']))}\\% of the GNN in Rotterdam",
     f"reduced engine-verified pedestrian heat dose {F['opt_vs_random_ratio_range'][0]:.1f}--{F['opt_vs_random_ratio_range'][1]:.1f} times more",
     f"by up to {-F['equity_best'][0]:.1f}\\% at 90\\% of greedy's cooling",
-    f"with per-segment correlations of {f2(F['corr_gnn_solweig_range'][0])}--{f2(F['corr_gnn_solweig_range'][1])}",
+    f"with segment-hour correlations of {f2(F['corr_gnn_solweig_range'][0])}--{f2(F['corr_gnn_solweig_range'][1])}",
     f"underestimated it by {F['underestimate_engine_pct_range'][0]:.0f}--{F['underestimate_engine_pct_range'][1]:.0f}\\% and "
     f"{F['underestimate_gnn_pct_range'][0]:.0f}--{F['underestimate_gnn_pct_range'][1]:.0f}\\%",
     # "more" is SOLWEIG relative to the engine (SOLWEIG / engine - 1), not the engine's underestimate
