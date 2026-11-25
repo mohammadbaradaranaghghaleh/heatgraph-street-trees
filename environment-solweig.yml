@@ -1,0 +1,25 @@
+# Reference-model environment for SOLWEIG-GPU (used only by scripts/02_solweig_benchmark.py and
+# scripts/09_solweig_verify.py through `conda run -n solweig-ref`). Versions as used for the paper.
+#   conda env create -f environment-solweig.yml
+#   conda run -n solweig-ref python -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130
+#   conda run -n solweig-ref python -m pip install solweig-gpu==2.0.1
+# solweig-gpu imports osgeo.gdal and numba without declaring them; both come from conda-forge here.
+# solweig-gpu is GPL-3.0 and is called as a separate program; it is not distributed with this repository.
+name: solweig-ref
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - gdal=3.13.3
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - pandas=3.1.1
+  - netcdf4=1.7.5
+  - xarray=2026.9.0
+  - shapely=2.2.0
+  - timezonefinder=9.0.0
+  - pytz=2026.6
+  - tqdm=4.70.1
+  - matplotlib=3.11.2
+  - numba=0.68.1
+  - pip

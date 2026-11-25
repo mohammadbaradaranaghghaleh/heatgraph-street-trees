@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heatgraph"
+version = "0.1.0"
+description = "Exposure-weighted, equity-constrained street-tree allocation with a GNN surrogate of pedestrian thermal comfort"
+requires-python = ">=3.11"
+dependencies = []   # core config/dry-run is stdlib-only
+
+[project.optional-dependencies]
+# Blocks A-B (CPU)
+ingest = ["numpy", "pandas", "geopandas", "shapely>=2", "pyproj", "rasterio", "osmnx>=2.0",
+          "overturemaps[geopandas]", "pyarrow"]
+# Block C engine (CPU)
+engine = ["numpy", "scipy", "pandas", "pvlib", "pythermalcomfort", "shapely>=2"]
+# Block D graph (CPU)
+graph = ["networkx", "momepy", "igraph"]
+# Blocks E-H. CPU build used for development/tests:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# For GPU training later, install the CUDA build of torch for your driver instead.
+ml = ["torch", "torch_geometric", "mapie", "pymoo", "scikit-learn"]
+# Block I reference model (GPL-3.0; used only as an external benchmark)
+validate = ["solweig-gpu"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

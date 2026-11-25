@@ -1,0 +1,24 @@
+**Equity available on the NSGA-III (GNN) front at >= 90 % of greedy's cooling (population proxy)**
+
+| Patch | Trees | Theil greedy | Theil best front | Change (%) | Cooling kept (%) |
+|---|---|---|---|---|---|
+| Rotterdam Centrum | 12 | 0.0681 | 0.0669 | -1.7 | 92 |
+| Rotterdam Centrum | 25 | 0.0673 | 0.0666 | -1.0 | 93 |
+| Rotterdam Centrum | 50 | 0.0671 | 0.0652 | -2.8 | 90 |
+| Rotterdam Centrum | 75 | 0.0666 | 0.0645 | -3.1 | 90 |
+| Rotterdam Centrum | 100 | 0.0667 | 0.0641 | -3.9 | 90 |
+| Rotterdam Kop van Zuid | 12 | 0.1094 | 0.1084 | -0.9 | 93 |
+| Rotterdam Kop van Zuid | 25 | 0.1078 | 0.1078 | +0.0 | 100 |
+| Rotterdam Kop van Zuid | 50 | 0.1050 | 0.1014 | -3.4 | 92 |
+| Rotterdam Kop van Zuid | 75 | 0.1040 | 0.0988 | -5.0 | 90 |
+| Rotterdam Kop van Zuid | 100 | 0.1032 | 0.1004 | -2.8 | 93 |
+| Rotterdam Oude Westen | 12 | 0.0361 | 0.0356 | -1.6 | 91 |
+| Rotterdam Oude Westen | 25 | 0.0346 | 0.0341 | -1.6 | 95 |
+| Rotterdam Oude Westen | 50 | 0.0346 | 0.0333 | -3.6 | 92 |
+| Rotterdam Oude Westen | 75 | 0.0338 | 0.0311 | -8.2 | 93 |
+| Rotterdam Oude Westen | 100 | 0.0326 | 0.0316 | -3.3 | 91 |
+| Freiburg Altstadt (transfer) | 12 | 0.0820 | 0.0813 | -0.9 | 97 |
+| Freiburg Altstadt (transfer) | 25 | 0.0813 | 0.0804 | -1.2 | 92 |
+| Freiburg Altstadt (transfer) | 50 | 0.0817 | 0.0794 | -2.9 | 94 |
+| Freiburg Altstadt (transfer) | 75 | 0.0819 | 0.0778 | -5.1 | 93 |
+| Freiburg Altstadt (transfer) | 100 | 0.0817 | 0.0781 | -4.4 | 92 |

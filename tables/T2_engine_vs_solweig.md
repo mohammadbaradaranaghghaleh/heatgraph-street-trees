@@ -1,0 +1,9 @@
+**Tmrt of the pure-Python engine vs SOLWEIG-GPU (all core ground pixel-hours); gate MAE <= 3 K and |bias| <= 1 K**
+
+| Patch / day | MAE default (K) | Bias default (K) | MAE calibrated (K) | Bias calibrated (K) | Gate |
+|---|---|---|---|---|---|
+| ams_grachtengordel 2019-07-25 (calibration) | 1.81 | -1.36 | 1.32 | -0.40 | fit |
+| utr_binnenstad 2022-07-19 | 1.71 | -1.11 | 1.51 | -0.49 | pass |
+| rot_oude_westen 2020-08-08 | 1.62 | -0.97 | 1.30 | -0.26 | pass |
+| ams_zuidas 2019-07-25 | 2.16 | -1.90 | 1.43 | -0.73 | pass |
+| rot_centrum 2022-07-19 | 2.25 | -1.79 | 1.62 | -0.85 | pass |

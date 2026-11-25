@@ -1,0 +1,39 @@
+# HeatGraph -- pinned top-level dependencies (Python 3.11; versions used to produce the paper).
+# Full transitive lock: requirements-lock.txt.
+#
+# PyTorch: the results were produced with torch 2.14.1+cu130 on an NVIDIA RTX 5070.
+#   GPU (CUDA 13.0, needed for RTX 50-series):
+#     pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130
+#   CPU only (enough to reproduce figures/tables and run all tests):
+#     pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+#   Install torch FIRST, then:  pip install -r requirements.txt
+#
+# SOLWEIG-GPU (reference model, only for re-running the validation) needs GDAL and lives in a
+# separate conda environment: environment-solweig.yml.
+
+# core numerics
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.1.1
+# radiation / comfort engine
+pvlib==0.16.1
+pythermalcomfort==4.8.1
+# geodata and ingestion
+shapely==2.2.0
+geopandas==1.2.0
+pyproj==3.7.2
+rasterio==1.4.4
+osmnx==2.1.2
+overturemaps==2.1.1
+pyarrow==26.0.1
+networkx==3.6.1
+# learning, uncertainty, optimisation
+torch==2.14.1
+torch-geometric==2.8.1
+scikit-learn==1.9.1
+MAPIE==1.6.0
+pymoo==0.6.2
+# figures and dashboard
+matplotlib==3.11.2
+streamlit==1.67.0
+altair==6.3.0

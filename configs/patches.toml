@@ -1,0 +1,173 @@
+# HeatGraph patch registry.
+# Training/validation patches: 500 m x 500 m core + engine buffer (see engine.toml).
+# Coordinates are patch CENTRES in WGS84 (lon, lat).
+# status = "frozen" until the intended LCZ is checked against the Demuzere et al.
+# global LCZ map and the patch is frozen. Do not train on candidate patches.
+
+[meta]
+core_size_m = 500
+source_default = "3dbag"           # gold-standard heights (NL only)
+canopy_source = "meta_chm_v1"
+weather_source = "open_meteo_archive"   # ERA5-based, no API key
+heatwave_days = ["2019-07-25", "2020-08-08", "2022-07-19"]
+
+# ---------------- Training / validation patches (3DBAG, Netherlands) ----------------
+[[patch]]
+id = "ams_grachtengordel"
+city = "amsterdam"
+lon = 4.8873
+lat = 52.3676
+lcz_intended = "LCZ2 compact midrise"
+status = "frozen"
+
+[[patch]]
+id = "ams_zuidas"
+city = "amsterdam"
+lon = 4.8686
+lat = 52.33843
+lcz_intended = "LCZ1/4 highrise"
+recentred = "2026-11-25 LCZ-guided search (scripts/03_patch_search.py): was 4.8730/52.3389; core BSF 0.35, 19 towers >40 m, h_mean_aw 45 m"
+status = "frozen"
+
+[[patch]]
+id = "ams_bijlmer"
+city = "amsterdam"
+lon = 4.9530
+lat = 52.3160
+lcz_intended = "LCZ4 open highrise"
+status = "frozen"
+
+[[patch]]
+id = "ams_bos_en_lommer"
+city = "amsterdam"
+lon = 4.8480
+lat = 52.3790
+lcz_intended = "LCZ2/5 compact-open midrise"
+status = "frozen"
+
+[[patch]]
+id = "ams_ijburg"
+city = "amsterdam"
+lon = 5.0000
+lat = 52.3550
+lcz_intended = "LCZ5 open midrise (new)"
+status = "frozen"
+
+[[patch]]
+id = "rot_centrum"
+city = "rotterdam"
+lon = 4.4750
+lat = 51.9220
+lcz_intended = "LCZ1/4 highrise"
+status = "frozen"
+
+[[patch]]
+id = "rot_oude_westen"
+city = "rotterdam"
+lon = 4.4600
+lat = 51.9150
+lcz_intended = "LCZ2 compact midrise"
+status = "frozen"
+
+[[patch]]
+id = "rot_kop_van_zuid"
+city = "rotterdam"
+lon = 4.49452
+lat = 51.90695
+lcz_intended = "LCZ4/5 waterfront highrise"
+recentred = "2026-11-25 LCZ-guided search: was 4.4880/51.9060 (51 % river); core water 15 %, BSF 0.22, 9 towers, h_mean_aw 45 m"
+status = "frozen"
+
+[[patch]]
+id = "utr_binnenstad"
+city = "utrecht"
+lon = 5.1214
+lat = 52.0907
+lcz_intended = "LCZ2/3 historic compact"
+status = "frozen"
+
+[[patch]]
+id = "utr_leidsche_rijn"
+city = "utrecht"
+lon = 5.0650
+lat = 52.0990
+lcz_intended = "LCZ6 open lowrise"
+status = "frozen"
+
+[[patch]]
+id = "dha_schilderswijk"
+city = "den_haag"
+lon = 4.3000
+lat = 52.0700
+lcz_intended = "LCZ2/3 compact low-midrise"
+status = "frozen"
+
+[[patch]]
+id = "dha_beatrixkwartier"
+city = "den_haag"
+lon = 4.32345
+lat = 52.08292
+lcz_intended = "LCZ1/4 office highrise"
+recentred = "2026-11-25 LCZ-guided search: was 4.3270/52.0870 (Haagse Bos, BSF 0.05); core BSF 0.20, 7 towers, h_mean_aw 43 m"
+status = "frozen"
+
+[[patch]]
+id = "ein_strijp_s"
+city = "eindhoven"
+lon = 5.4560
+lat = 51.4480
+lcz_intended = "LCZ8/10 converted industrial"
+status = "frozen"
+
+[[patch]]
+id = "gro_binnenstad"
+city = "groningen"
+lon = 6.5670
+lat = 53.2190
+lcz_intended = "LCZ2 compact midrise"
+status = "frozen"
+
+[[patch]]
+id = "alm_centrum"
+city = "almere"
+lon = 5.2180
+lat = 52.3720
+lcz_intended = "LCZ5 planned open midrise"
+status = "frozen"
+
+[[patch]]
+id = "amf_vathorst"
+city = "amersfoort"
+lon = 5.4240
+lat = 52.1950
+lcz_intended = "LCZ6 suburban lowrise"
+status = "frozen"
+
+[[patch]]
+id = "dlf_campus"
+city = "delft"
+lon = 4.3730
+lat = 52.0000
+lcz_intended = "LCZ5/9 open campus"
+status = "frozen"
+
+# ---------------- Full-city evaluation (held out from training) ----------------
+[[evaluation]]
+id = "eval_rotterdam_city"
+city = "rotterdam"
+source = "3dbag"
+# Full-city bbox (WGS84: west, south, east, north). Rotterdam patches above are
+# excluded from training when this evaluation runs (leave-one-city-out).
+bbox = [4.40, 51.87, 4.58, 51.96]
+status = "not_ingested"   # full-city tiled ingestion (Block A2) not implemented yet
+
+# ---------------- Cross-dataset transfer (Overture heights, outside NL) ----------------
+[[transfer]]
+id = "xfer_freiburg_altstadt"
+city = "freiburg"
+source = "overture"
+lon = 7.8520
+lat = 47.9950
+lcz_intended = "LCZ2 compact midrise"
+note = "Same city as the Briegel et al. U-Net Tmrt work, enabling a direct comparison."
+status = "frozen"

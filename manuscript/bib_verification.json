@@ -1,0 +1,378 @@
+[
+  {
+    "key": "lindberg2008",
+    "source": "stage1",
+    "doi": "10.1007/s00484-008-0162-7",
+    "status": "PASS"
+  },
+  {
+    "key": "lindberg2011",
+    "source": "stage1",
+    "doi": "10.1007/s00704-010-0382-8",
+    "status": "PASS"
+  },
+  {
+    "key": "lindberg2018",
+    "source": "stage1",
+    "doi": "10.1016/j.envsoft.2017.09.020",
+    "status": "PASS"
+  },
+  {
+    "key": "thorsson2007",
+    "source": "stage1",
+    "doi": "10.1002/joc.1537",
+    "status": "PASS"
+  },
+  {
+    "key": "brode2012",
+    "source": "stage1",
+    "doi": "10.1007/s00484-011-0454-1",
+    "status": "PASS"
+  },
+  {
+    "key": "tartarini2020",
+    "source": "stage1",
+    "doi": "10.1016/j.softx.2020.100578",
+    "status": "PASS"
+  },
+  {
+    "key": "ratti2004",
+    "source": "stage1",
+    "doi": "10.1068/b2665",
+    "status": "PASS"
+  },
+  {
+    "key": "middel2021",
+    "source": "stage1",
+    "doi": "10.1175/bams-d-20-0193.1",
+    "status": "PASS"
+  },
+  {
+    "key": "middel2016",
+    "source": "stage1",
+    "doi": "10.1007/s00484-016-1172-5",
+    "status": "PASS"
+  },
+  {
+    "key": "konarska2014",
+    "source": "stage1",
+    "doi": "10.1007/s00704-013-1000-3",
+    "status": "PASS"
+  },
+  {
+    "key": "holmgren2018",
+    "source": "stage1",
+    "doi": "10.21105/joss.00884",
+    "status": "PASS"
+  },
+  {
+    "key": "reda2004",
+    "source": "stage1",
+    "doi": "10.1016/j.solener.2003.12.003",
+    "status": "PASS"
+  },
+  {
+    "key": "bowler2010",
+    "source": "stage1",
+    "doi": "10.1016/j.landurbplan.2010.05.006",
+    "status": "PASS"
+  },
+  {
+    "key": "rahman2020",
+    "source": "stage1",
+    "doi": "10.1016/j.buildenv.2019.106606",
+    "status": "PASS"
+  },
+  {
+    "key": "ziter2019",
+    "source": "stage1",
+    "doi": "10.1073/pnas.1817561116",
+    "status": "PASS"
+  },
+  {
+    "key": "schwaab2021",
+    "source": "stage1",
+    "doi": "10.1038/s41467-021-26768-w",
+    "status": "PASS"
+  },
+  {
+    "key": "lee2016",
+    "source": "stage1",
+    "doi": "10.1016/j.landurbplan.2015.12.004",
+    "status": "PASS"
+  },
+  {
+    "key": "zhao2018",
+    "source": "stage1",
+    "doi": "10.1016/j.ufug.2018.03.022",
+    "status": "PASS"
+  },
+  {
+    "key": "lachapelle2023",
+    "source": "stage1",
+    "doi": "10.1016/j.landurbplan.2022.104608",
+    "status": "PASS"
+  },
+  {
+    "key": "schrodi2023",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2310.05691",
+    "status": "PASS"
+  },
+  {
+    "key": "kim2025",
+    "source": "stage1",
+    "doi": "10.1016/j.jenvman.2025.125398",
+    "status": "PASS"
+  },
+  {
+    "key": "briegel2023",
+    "source": "stage1",
+    "doi": "10.1016/j.uclim.2022.101359",
+    "status": "PASS"
+  },
+  {
+    "key": "briegel2024",
+    "source": "stage1",
+    "doi": "10.5194/gmd-17-1667-2024",
+    "status": "PASS"
+  },
+  {
+    "key": "yu2024",
+    "source": "stage1",
+    "doi": "10.1016/j.uclim.2024.102003",
+    "status": "PASS"
+  },
+  {
+    "key": "xin2025",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2510.00457",
+    "status": "PASS"
+  },
+  {
+    "key": "pfaff2021",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2010.03409",
+    "status": "PASS"
+  },
+  {
+    "key": "brody2022",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2105.14491",
+    "status": "PASS"
+  },
+  {
+    "key": "fey2019",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.1903.02428",
+    "status": "PASS"
+  },
+  {
+    "key": "angelopoulos2021",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2107.07511",
+    "status": "PASS"
+  },
+  {
+    "key": "deb2014",
+    "source": "stage1",
+    "doi": "10.1109/tevc.2013.2281535",
+    "status": "PASS"
+  },
+  {
+    "key": "blank2020",
+    "source": "stage1",
+    "doi": "10.1109/access.2020.2990567",
+    "status": "PASS"
+  },
+  {
+    "key": "sevtsuk2021",
+    "source": "stage1",
+    "doi": "10.1080/01944363.2020.1864758",
+    "status": "PASS"
+  },
+  {
+    "key": "boeing2017",
+    "source": "stage1",
+    "doi": "10.1016/j.compenvurbsys.2017.05.004",
+    "status": "PASS"
+  },
+  {
+    "key": "kuras2017",
+    "source": "stage1",
+    "doi": "10.1289/ehp556",
+    "status": "PASS"
+  },
+  {
+    "key": "kolaxidis2025",
+    "source": "stage1",
+    "doi": "10.1111/tgis.70110",
+    "status": "PASS"
+  },
+  {
+    "key": "vu2025",
+    "source": "stage1",
+    "doi": "10.48550/arXiv.2512.11896",
+    "status": "PASS"
+  },
+  {
+    "key": "hsu2021",
+    "source": "stage1",
+    "doi": "10.1038/s41467-021-22799-5",
+    "status": "PASS"
+  },
+  {
+    "key": "mcdonald2021",
+    "source": "stage1",
+    "doi": "10.1371/journal.pone.0249715",
+    "status": "PASS"
+  },
+  {
+    "key": "locke2021",
+    "source": "stage1",
+    "doi": "10.1038/s42949-021-00022-0",
+    "status": "PASS"
+  },
+  {
+    "key": "schwarz2015",
+    "source": "stage1",
+    "doi": "10.1371/journal.pone.0122051",
+    "status": "PASS"
+  },
+  {
+    "key": "chakraborty2019",
+    "source": "stage1",
+    "doi": "10.1088/1748-9326/ab3b99",
+    "status": "PASS"
+  },
+  {
+    "key": "benz2021",
+    "source": "stage1",
+    "doi": "10.1029/2021ef002016",
+    "status": "PASS"
+  },
+  {
+    "key": "tolan2024",
+    "source": "stage1",
+    "doi": "10.1016/j.rse.2023.113888",
+    "status": "PASS"
+  },
+  {
+    "key": "peters2022",
+    "source": "stage1",
+    "doi": "10.14358/pers.21-00032r2",
+    "status": "PASS"
+  },
+  {
+    "key": "demuzere2022",
+    "source": "stage1",
+    "doi": "10.5194/essd-14-3835-2022",
+    "status": "PASS"
+  },
+  {
+    "key": "stewart2012",
+    "source": "stage1",
+    "doi": "10.1175/bams-d-11-00019.1",
+    "status": "PASS"
+  },
+  {
+    "key": "hersbach2020",
+    "source": "stage1",
+    "doi": "10.1002/qj.3803",
+    "status": "PASS"
+  },
+  {
+    "key": "sanchez2019",
+    "source": "stage1",
+    "doi": "10.1016/j.ufug.2019.04.014",
+    "status": "PASS"
+  },
+  {
+    "key": "kamath2026",
+    "source": "stage1",
+    "doi": "10.21105/joss.09535",
+    "status": "PASS"
+  },
+  {
+    "key": "nemhauser1978",
+    "source": "extra",
+    "id": "10.1007/BF01588971",
+    "fetched_title": "An analysis of approximations for maximizing submodular set functions—I",
+    "ratio": 0.986,
+    "status": "PASS"
+  },
+  {
+    "key": "hamilton2017",
+    "source": "extra",
+    "id": "arxiv:1706.02216",
+    "fetched_title": "Inductive Representation Learning on Large Graphs",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "gilmer2017",
+    "source": "extra",
+    "id": "arxiv:1704.01212",
+    "fetched_title": "Neural Message Passing for Quantum Chemistry",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "loshchilov2019",
+    "source": "extra",
+    "id": "arxiv:1711.05101",
+    "fetched_title": "Decoupled Weight Decay Regularization",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "lei2018",
+    "source": "extra",
+    "id": "10.1080/01621459.2017.1307116",
+    "fetched_title": "Distribution-Free Predictive Inference for Regression",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "shorrocks1980",
+    "source": "extra",
+    "id": "10.2307/1913126",
+    "fetched_title": "The Class of Additively Decomposable Inequality Measures",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "erbs1982",
+    "source": "extra",
+    "id": "10.1016/0038-092X(82)90302-4",
+    "fetched_title": "Estimation of the diffuse radiation fraction for hourly, daily and monthly-average global radiation",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "prata1996",
+    "source": "extra",
+    "id": "10.1002/qj.49712253306",
+    "fetched_title": "A new long‐wave formula for estimating downward clear‐sky radiation at the surface",
+    "ratio": 1.0,
+    "status": "PASS"
+  },
+  {
+    "key": "overture2026",
+    "source": "data/software, no DOI",
+    "url": "https://overturemaps.org",
+    "status": "URL only"
+  },
+  {
+    "key": "osm2026",
+    "source": "data/software, no DOI",
+    "url": "https://www.openstreetmap.org",
+    "status": "URL only"
+  },
+  {
+    "key": "openmeteo2026",
+    "source": "data/software, no DOI",
+    "url": "https://open-meteo.com",
+    "status": "URL only"
+  }
+]

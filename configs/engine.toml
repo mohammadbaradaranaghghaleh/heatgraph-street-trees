@@ -1,0 +1,68 @@
+# HeatGraph pure-Python 2.5D radiation/UTCI engine (Block C) parameters.
+# Values marked [lit] must be cited in the methods section; [tune] are calibrated
+# against the solweig-gpu reference benchmark (Block I), never against test data.
+
+[grid]
+resolution_m = 1.0
+buffer_m = 200          # shadows from a 60 m building at ~17 deg solar elevation reach ~196 m
+nodata_height = 0.0
+
+[sun]
+# pvlib.solarposition.get_solarposition (NREL SPA)
+min_elevation_deg = 3.0 # below this, treat as no direct beam
+# Open-Meteo/ERA5 hourly radiation is the mean of the PRECEDING hour, so the sun is evaluated
+# at the interval midpoint (timestamp - 30 min), identical to SOLWEIG's convention.
+time_offset_min = -30
+
+[shadow]
+method = "shifted_max"  # Ratti & Richens (2004) raster shadow casting, vectorised in numpy
+tree_transmissivity = 0.03   # [lit][tune] leaf-on crown transmissivity
+trunk_zone_fraction = 0.25   # [lit] lower fraction of canopy height treated as trunk zone
+
+[svf]
+n_azimuths = 36
+max_distance_m = 200
+split_by = ["building", "vegetation"]   # SVF_b and SVF_v kept separate (needed for Tmrt)
+
+[radiation]
+# CALIBRATED 2026-11-25 against SOLWEIG-GPU 2.0.1 on ams_grachtengordel / 2019-07-25 only
+# (grid search, scripts/02_solweig_benchmark.py; record in data/validation/calibration.json).
+# Held-out gate PASSED on 4 patch-days (MAE 1.30-1.62 K, |bias| <= 0.85 K).
+# albedo_ground is an EFFECTIVE parameter (it absorbs missing wall-reflected shortwave and the
+# isotropic-sky simplification) and sits at the edge of its search range; do not read it as
+# the physical albedo of Dutch paving.
+albedo_ground = 0.30
+ground_warming_k_per_kwm2 = 15.0
+wall_warming_k_per_kwm2 = 4.0
+albedo_wall = 0.20
+emissivity_ground = 0.95
+emissivity_wall = 0.90
+emissivity_sky_model = "prata1996"
+absorption_shortwave = 0.70   # [lit] human body
+absorption_longwave = 0.97    # [lit]
+posture = "standing"          # six-directional angular factors 0.22 (lateral) / 0.06 (up/down)
+
+[ground_temperature]
+model = "lindberg2008_sinusoid"   # sunlit ground warming parameterisation [lit]
+
+[wind]
+# UTCI's wind input is defined at 10 m. Street-level ventilation is represented by a
+# 10 m-EQUIVALENT speed: forcing wind (ERA5, 10 m) x urban reduction factor, clipped to
+# the UTCI validity range. Do not pass 1.1 m wind directly to UTCI.
+reference_height_m = 10.0
+urban_reduction_factor = 0.5   # [tune] per LCZ later (sheltered canyons < open areas)
+utci_min_ms = 0.5              # UTCI regression validity range
+utci_max_ms = 17.0
+
+[utci]
+backend = "pythermalcomfort"   # pythermalcomfort.models.utci (vectorised)
+limit_inputs = true
+
+[pedestrian_sampling]
+spacing_m = 5.0                # receptor points along walkable edges
+sidewalk_offset_m = 3.0        # offset from street centreline when no sidewalk geometry exists
+
+[validation]
+reference_model = "solweig-gpu"   # pip-installable SOLWEIG port; reference only, CPU mode allowed
+reference_subset_patches = 4
+max_tmrt_mae_k = 3.0              # acceptance threshold vs reference, before surrogate training

@@ -1,0 +1,20 @@
+\begin{table}[tbp]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\caption{Mean radiant temperature of the 2.5D engine against SOLWEIG-GPU over all ground pixel-hours of the 500~m core, with default and calibrated parameters. The first row is the calibration patch-day (fit); the others are held out. Acceptance gate: MAE $\le$ 3~K and $|\mathrm{bias}|$ $\le$ 1~K.}
+\label{tab:T2_engine_vs_solweig}
+\begin{tabular}{lrrrrl}
+\toprule
+ & \multicolumn{2}{c}{Default} & \multicolumn{2}{c}{Calibrated} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Patch and day & MAE (K) & Bias (K) & MAE (K) & Bias (K) & Gate \\
+\midrule
+Amsterdam Grachtengordel, 25 Jul 2019 & 1.81 & $-$1.36 & 1.32 & $-$0.40 & fit \\
+Utrecht Binnenstad, 19 Jul 2022 & 1.71 & $-$1.11 & 1.51 & $-$0.49 & pass \\
+Rotterdam Oude Westen, 8 Aug 2020 & 1.62 & $-$0.97 & 1.30 & $-$0.26 & pass \\
+Amsterdam Zuidas, 25 Jul 2019 & 2.16 & $-$1.90 & 1.43 & $-$0.73 & pass \\
+Rotterdam Centrum, 19 Jul 2022 & 2.25 & $-$1.79 & 1.62 & $-$0.85 & pass \\
+\bottomrule
+\end{tabular}
+\end{table}

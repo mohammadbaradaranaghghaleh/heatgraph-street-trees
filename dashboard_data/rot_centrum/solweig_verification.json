@@ -1,0 +1,165 @@
+{
+  "patch": "rot_centrum",
+  "designs": {
+    "none": {
+      "trees": 0,
+      "solweig": {
+        "dose": 11854.026179367078,
+        "dose_reduction_pct": 0.0,
+        "theil": 0.06190832814588998,
+        "mean_dUTCI": 0.0,
+        "mean_dUTCI_affected": 0.0,
+        "max_cooling": 0.0
+      },
+      "engine": {
+        "dose": 13171.599507589337,
+        "dose_reduction_pct": 0.0,
+        "theil": 0.06470486367034672,
+        "mean_dUTCI": 0.0,
+        "mean_dUTCI_affected": 0.0,
+        "max_cooling": 0.0
+      },
+      "gnn": {
+        "dose": 13168.821604232859,
+        "dose_reduction_pct": 0.0,
+        "theil": 0.06472216219482085,
+        "mean_dUTCI": 0.0,
+        "mean_dUTCI_affected": 0.0,
+        "max_cooling": 0.0
+      }
+    },
+    "low_budget": {
+      "trees": 25,
+      "solweig": {
+        "dose": 11568.969619095433,
+        "dose_reduction_pct": 2.4047235593912375,
+        "theil": 0.06473139190117824,
+        "mean_dUTCI": -0.14508435130119324,
+        "mean_dUTCI_affected": -0.6255205273628235,
+        "max_cooling": -5.923482894897461
+      },
+      "engine": {
+        "dose": 12886.925923783807,
+        "dose_reduction_pct": 2.1612681409080516,
+        "theil": 0.06727288613429994,
+        "mean_dUTCI": -0.13267235457897186,
+        "mean_dUTCI_affected": -1.8753678798675537,
+        "max_cooling": -7.251077651977539
+      },
+      "gnn": {
+        "dose": 12887.44858225571,
+        "dose_reduction_pct": 2.136660594496215,
+        "theil": 0.06746779926273903,
+        "mean_dUTCI": -0.13670586049556732,
+        "mean_dUTCI_affected": -1.683942437171936,
+        "max_cooling": -7.408733367919922
+      },
+      "agreement": {
+        "corr_engine_vs_solweig": 0.9693212278330088,
+        "corr_gnn_vs_solweig": 0.9364374417121678,
+        "mae_engine_vs_solweig": 0.058105990290641785,
+        "mae_gnn_vs_solweig": 0.06471960991621017
+      }
+    },
+    "knee": {
+      "trees": 37,
+      "solweig": {
+        "dose": 11475.166666332318,
+        "dose_reduction_pct": 3.1960407991522484,
+        "theil": 0.06536451767305994,
+        "mean_dUTCI": -0.20848020911216736,
+        "mean_dUTCI_affected": -0.6956250667572021,
+        "max_cooling": -5.950075149536133
+      },
+      "engine": {
+        "dose": 12800.210346388998,
+        "dose_reduction_pct": 2.8196208136023913,
+        "theil": 0.06761593845045678,
+        "mean_dUTCI": -0.18842992186546326,
+        "mean_dUTCI_affected": -1.9013816118240356,
+        "max_cooling": -7.251077651977539
+      },
+      "gnn": {
+        "dose": 12801.645996605992,
+        "dose_reduction_pct": 2.7882191638836176,
+        "theil": 0.06786065619724814,
+        "mean_dUTCI": -0.19253861904144287,
+        "mean_dUTCI_affected": -1.732373833656311,
+        "max_cooling": -7.408733367919922
+      },
+      "agreement": {
+        "corr_engine_vs_solweig": 0.9676450864572046,
+        "corr_gnn_vs_solweig": 0.9379835635098925,
+        "mae_engine_vs_solweig": 0.08021193742752075,
+        "mae_gnn_vs_solweig": 0.0888146162033081
+      }
+    },
+    "high_budget": {
+      "trees": 75,
+      "solweig": {
+        "dose": 11251.436383291795,
+        "dose_reduction_pct": 5.0834188060436425,
+        "theil": 0.06412939624036618,
+        "mean_dUTCI": -0.4192897379398346,
+        "mean_dUTCI_affected": -0.7725659012794495,
+        "max_cooling": -6.074213027954102
+      },
+      "engine": {
+        "dose": 12621.21538360096,
+        "dose_reduction_pct": 4.178567103192375,
+        "theil": 0.06674535987512524,
+        "mean_dUTCI": -0.35321325063705444,
+        "mean_dUTCI_affected": -1.9086264371871948,
+        "max_cooling": -7.251010894775391
+      },
+      "gnn": {
+        "dose": 12630.423516629358,
+        "dose_reduction_pct": 4.088430261903182,
+        "theil": 0.06707283136994685,
+        "mean_dUTCI": -0.35023632645606995,
+        "mean_dUTCI_affected": -1.7430907487869263,
+        "max_cooling": -7.407215118408203
+      },
+      "agreement": {
+        "corr_engine_vs_solweig": 0.9555097161846303,
+        "corr_gnn_vs_solweig": 0.9133260166345321,
+        "mae_engine_vs_solweig": 0.15488813817501068,
+        "mae_gnn_vs_solweig": 0.1796126365661621
+      }
+    },
+    "max_cooling": {
+      "trees": 100,
+      "solweig": {
+        "dose": 11152.505158484826,
+        "dose_reduction_pct": 5.91799790440237,
+        "theil": 0.06406260838290578,
+        "mean_dUTCI": -0.5007643699645996,
+        "mean_dUTCI_affected": -0.798106849193573,
+        "max_cooling": -6.074213027954102
+      },
+      "engine": {
+        "dose": 12546.592289133703,
+        "dose_reduction_pct": 4.74511252863034,
+        "theil": 0.06666915811434719,
+        "mean_dUTCI": -0.4162643253803253,
+        "mean_dUTCI_affected": -1.861545443534851,
+        "max_cooling": -7.251010894775391
+      },
+      "gnn": {
+        "dose": 12554.63952721234,
+        "dose_reduction_pct": 4.663910678409532,
+        "theil": 0.06709525323237604,
+        "mean_dUTCI": -0.41679733991622925,
+        "mean_dUTCI_affected": -1.7208304405212402,
+        "max_cooling": -7.407314300537109
+      },
+      "agreement": {
+        "corr_engine_vs_solweig": 0.9514563390779376,
+        "corr_gnn_vs_solweig": 0.9089208471965344,
+        "mae_engine_vs_solweig": 0.1847790777683258,
+        "mae_gnn_vs_solweig": 0.21574346721172333
+      }
+    }
+  },
+  "notes": "changes are relative to each model's own no-planting run"
+}

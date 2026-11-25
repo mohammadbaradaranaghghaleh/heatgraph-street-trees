@@ -1,0 +1,36 @@
+# Python / environments
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Data: distributed as a release archive (scripts/make_release_archive.py), not in git.
+# Only the frozen-dataset hash record and the ingestion QA table are versioned.
+data/*
+!data/raw/
+data/raw/*
+!data/raw/FROZEN.json
+!data/raw/ingest_summary.csv
+
+# Outputs of reproduce.py and release builds
+reproduction/
+dist/
+/*.zip
+
+# LaTeX build products (manuscript/main.pdf itself is versioned)
+manuscript/*.aux
+manuscript/*.bbl
+manuscript/*.blg
+manuscript/*.fdb_latexmk
+manuscript/*.fls
+manuscript/*.log
+manuscript/*.out
+manuscript/*.synctex.gz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
