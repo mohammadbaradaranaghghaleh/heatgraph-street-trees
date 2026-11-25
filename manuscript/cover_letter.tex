@@ -1,0 +1,49 @@
+%% Cover letter for the submission to Landscape and Urban Planning.
+%% Compile: tectonic cover_letter.tex
+\documentclass[11pt]{letter}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+\fi
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{0.6em}
+
+\signature{Ali Yazdani\\(corresponding author, on behalf of all authors)\\Department of Urban Planning, Science and Research Branch, Islamic Azad University, Tehran, Iran}
+\address{Department of Urban Planning\\Science and Research Branch, Islamic Azad University\\Tehran, Iran}
+\date{25 November 2026}
+
+\begin{document}
+\begin{letter}{The Editors-in-Chief\\\emph{Landscape and Urban Planning}}
+
+\opening{Dear Editors-in-Chief,}
+
+We submit the manuscript \emph{``Where should street trees go? Exposure-weighted allocation with physics-informed surrogates, tested against practitioner rules and verified with SOLWEIG''} for consideration as a Research Paper in \emph{Landscape and Urban Planning}.
+
+Cities plant street trees to reduce pedestrian heat stress, but budgets allow only a fraction of the possible positions to be planted. The manuscript asks a planning question: where should a fixed number of trees go to reduce the heat that people walking in the street actually experience, and how much is lost by the simpler rules used in practice? We think the answer is of direct interest to your readers in urban forestry, green infrastructure planning and climate adaptation.
+
+The main findings are the following.
+\begin{itemize}
+  \item Where trees go matters as much as how many are planted. In four neighbourhoods of Rotterdam and Freiburg that our models had not seen, exposure-weighted allocation reduced pedestrian heat dose 1.8--6.0 times more than random planting, and a quarter to a half as many well-placed trees matched the largest random planting. Every reported outcome was re-simulated with a calibrated physics engine.
+  \item Common rules of thumb fall short. Planting the sunniest, busiest streets achieved only 46--85\% of the model-based reduction, and 29--71\% when pedestrian flow was ignored.
+  \item The decision-relevant model is simple and transparent. A greedy allocation on physics-informed crown-shadow features reached the cooling optimum that a multi-objective search also found. The search adds explicit trade-offs between cooling, between-district equity and budget, and we show that its equity gains come mainly from cooling the least exposed district less.
+  \item The cooling estimates were checked against SOLWEIG-GPU, a model developed independently of ours. It confirmed the cooling of optimised layouts, with our chain underestimating total cooling while concentrating it more tightly under the new crowns.
+\end{itemize}
+
+We report qualifying results openly, including that multi-objective optimisation did not add cooling over greedy allocation, that the uncertainty margin under-covers optimised layouts, and that the equity analysis rests on a population proxy. All verification is model-based; field measurement under newly planted trees is the natural next step.
+
+All input data are open, and the code is public at \url{https://github.com/mohammadbaradaranaghghaleh/heatgraph-street-trees}. A single command regenerates every figure and table from the released results and audits every number in the manuscript against them. The repository also contains an interactive dashboard that shows the layouts and their simulated cooling for each test neighbourhood, which we hope will make the method usable by planners as well as researchers.
+
+The manuscript is original, has not been published previously and is not under consideration for publication elsewhere. All authors have approved the submission and declare no competing interests. The use of generative AI tools is declared in the manuscript.
+
+Thank you for considering our work.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

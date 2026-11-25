@@ -56,11 +56,11 @@ DISTRICT = {"centrum": "Centrum", "vathorst": "Vathorst", "bijlmer": "Bijlmer", 
             "beatrixkwartier": "Beatrixkwartier", "schilderswijk": "Schilderswijk", "campus": "Campus",
             "strijp_s": "Strijp-S", "binnenstad": "Binnenstad", "kop_van_zuid": "Kop van Zuid",
             "oude_westen": "Oude Westen", "leidsche_rijn": "Leidsche Rijn", "freiburg_altstadt": "Freiburg Altstadt"}
-SHORT_MODEL = {"GATv2 attention (v1 features)": "GATv2, v1",
-               "Sum aggregation, v1, within-patch val.": "Sum, v1, within-patch val.",
-               "Sum aggregation, v1, leave-patch-out val.": "Sum, v1, leave-patch-out val.",
-               "Linear model on v2 physics features": "Linear model, v2",
-               "Sum aggregation, v2 physics edges (ours)": "Sum, v2 (ours)"}
+SHORT_MODEL = {"GATv2 attention, geometric edges": "GATv2, geometric",
+               "Sum aggregation, geometric edges, within-patch val.": "Sum, geometric, planting val.",
+               "Sum aggregation, geometric edges, leave-patch-out val.": "Sum, geometric, patch val.",
+               "Linear model on crown-shadow features": "Linear, crown-shadow",
+               "Sum aggregation, crown-shadow edges (ours)": "Sum, crown-shadow (ours)"}
 MONTH = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 
@@ -181,11 +181,11 @@ def patch_day(label):
 
 def table_surrogates():
     m = DATA_DIR / "models"
-    spec = [("GATv2 attention (v1 features)", "metrics_gatv2.json"),
-            ("Sum aggregation, v1, within-patch val.", "metrics_edgemlp.json"),
-            ("Sum aggregation, v1, leave-patch-out val.", "metrics_edgemlp_v1_patchval.json"),
-            ("Linear model on v2 physics features", "metrics_linear_physics.json"),
-            ("Sum aggregation, v2 physics edges (ours)", "metrics_edgemlp_v2_patchval.json")]
+    spec = [("GATv2 attention, geometric edges", "metrics_gatv2.json"),
+            ("Sum aggregation, geometric edges, within-patch val.", "metrics_edgemlp.json"),
+            ("Sum aggregation, geometric edges, leave-patch-out val.", "metrics_edgemlp_v1_patchval.json"),
+            ("Linear model on crown-shadow features", "metrics_linear_physics.json"),
+            ("Sum aggregation, crown-shadow edges (ours)", "metrics_edgemlp_v2_patchval.json")]
     rows = []
     for name, f in spec:
         r = jload(m / f)
@@ -202,12 +202,13 @@ def table_surrogates():
                 "Surrogate accuracy on the tree-induced UTCI change in unseen cities; skill = 1 - dMAE / zero-change MAE",
                 tex=dict(colspec="lrrrrrr", tabcolsep="5pt", first=lambda s: SHORT_MODEL.get(s, s),
                          caption=r"Surrogate accuracy on the tree-induced change in segment UTCI in unseen cities. "
-                                 r"Sum, sum-aggregation GNN; GATv2, attention GNN; v1/v2, edge features without/with "
-                                 r"crown-shadow and under-crown terms; val., model-selection protocol. MAE, "
+                                 r"Sum, sum-aggregation GNN; GATv2, attention GNN; geometric/crown-shadow, slot-to-segment edges "
+                                 r"without/with the crown-shadow and under-crown features; planting/patch val., model selection on held-out plantings of the training patches or on whole held-out patches. MAE, "
                                  r"mean absolute error of the change against the engine; $r$, Pearson correlation; "
                                  r"skill $= 1 - \mathrm{MAE}/\mathrm{MAE}_0$, where $\mathrm{MAE}_0$ is the error of "
-                                 r"predicting no change. Rotterdam is an unseen city; Freiburg is an unseen city with "
-                                 r"imputed building heights.",
+                                 r"predicting no change. Rotterdam is an unseen Dutch city with lidar-based heights "
+                                 r"(3DBAG); Freiburg is an unseen German city whose heights come from another source "
+                                 r"and are largely imputed, a shift in country and input regime.",
                          head=[r" & \multicolumn{3}{c}{Rotterdam} & \multicolumn{3}{c}{Freiburg} \\",
                                r"\cmidrule(lr){2-4}\cmidrule(lr){5-7}",
                                r"Model & MAE ($^\circ$C) & $r$ & Skill (\%) & MAE ($^\circ$C) & $r$ & Skill (\%) \\"]))
@@ -219,6 +220,9 @@ def bench_results():
     for pid in TEST:
         r = jload(DATA_DIR / "stage5" / pid / "results.json")
         if r:
+            rev = jload(DATA_DIR / "stage5" / pid / "revision_r2r3.json")   # practitioner heuristics, unseeded NSGA-III
+            if rev:
+                r = dict(r, rows=r["rows"] + rev["rows"], revision=rev)
             out[pid] = r
     return out
 
@@ -229,20 +233,36 @@ def table_benchmark(B):
         tab = {}
         for x in r["rows"]:
             tab.setdefault((x["method"], x["budget"]), []).append(x["engine_dose_reduction_pct"])
+        heur = ("heur_sunflow", "heur_sun") if ("heur_sunflow", r["budgets"][0]) in tab else ()
         for b in r["budgets"]:
             rows.append([PATCH_LABEL[pid], f"{b} ({100 * b / r['n_slots']:.0f}%)"] +
-                        [f"{np.mean(tab[(m, b)]):.2f}" for m in ("nsga_gnn", "nsga_linear", "greedy")] +
+                        [f"{np.mean(tab[(m, b)]):.2f}" for m in ("nsga_gnn", "nsga_linear", "greedy") + heur] +
                         [f"{np.mean(tab[('random', b)]):.2f} ± {np.std(tab[('random', b)]):.2f}"])
-    write_table("T4_benchmark", ["Patch", "Trees (share of slots)", "NSGA-III GNN (%)", "NSGA-III linear (%)",
-                                 "Greedy (%)", "Random (%)"], rows,
+    if heur:
+        header = ["Patch", "Trees (share of slots)", "NSGA-III GNN (%)", "NSGA-III linear (%)", "Greedy (%)",
+                  "Heuristic sun x flow (%)", "Heuristic sun only (%)", "Random (%)"]
+        cap = (r"Engine-verified reduction (\%) of person-weighted heat dose (UTCI $>$ 26~$^\circ$C) by method and "
+               r"tree budget in the four test patches (Freiburg Altstadt is the transfer patch). The two practitioner "
+               r"heuristics use no surrogate and no optimiser: they plant the streets with the largest unshaded share, "
+               r"weighted by pedestrian flow (sun $\times$ flow) or not (sun only). Random layouts: mean $\pm$ "
+               r"standard deviation of ten layouts.")
+        head = [r" & & \multicolumn{2}{c}{NSGA-III} & & \multicolumn{2}{c}{Heuristic} & \\",
+                r"\cmidrule(lr){3-4}\cmidrule(lr){6-7}",
+                r"Patch & Trees (share) & GNN & Linear & Greedy & Sun $\times$ flow & Sun only & Random \\"]
+        colspec, sep, size = "lrrrrrrr", "3pt", r"\footnotesize"
+    else:
+        header = ["Patch", "Trees (share of slots)", "NSGA-III GNN (%)", "NSGA-III linear (%)", "Greedy (%)",
+                  "Random (%)"]
+        cap = (r"Engine-verified reduction (\%) of person-weighted heat dose (UTCI $>$ 26~$^\circ$C) "
+               r"by method and tree budget in the four test patches (Freiburg Altstadt is the "
+               r"transfer patch). Random layouts: mean $\pm$ standard deviation of ten layouts.")
+        head = [r" & & \multicolumn{2}{c}{NSGA-III} & & \\", r"\cmidrule(lr){3-4}",
+                r"Patch & Trees (share of slots) & GNN & Linear & Greedy & Random \\"]
+        colspec, sep, size = "lrrrrr", "5pt", r"\small"
+    write_table("T4_benchmark", header, rows,
                 "Engine-verified reduction of person-weighted heat dose (UTCI > 26 °C) by method and tree budget",
-                tex=dict(group=True, colspec="lrrrrr", tabcolsep="5pt", first=lambda s: s.replace(" (transfer)", ""),
-                         caption=r"Engine-verified reduction (\%) of person-weighted heat dose (UTCI $>$ 26~$^\circ$C) "
-                                 r"by method and tree budget in the four test patches (Freiburg Altstadt is the "
-                                 r"transfer patch). Random layouts: mean $\pm$ standard deviation of ten layouts.",
-                         head=[r" & & \multicolumn{2}{c}{NSGA-III} & & \\",
-                               r"\cmidrule(lr){3-4}",
-                               r"Patch & Trees (share of slots) & GNN & Linear & Greedy & Random \\"]))
+                tex=dict(group=True, colspec=colspec, tabcolsep=sep, size=size, first=lambda s: s.replace(" (transfer)", ""),
+                         caption=cap, head=head))
     eq = []
     for pid, r in B.items():
         for e in r.get("equity_at_matched_cooling", []):
@@ -261,32 +281,101 @@ def table_benchmark(B):
                                    r"Patch & Trees & Greedy & Best front & Change (\%) & Cooling kept (\%) \\"]))
 
 
+SENS_LABEL = [("baseline", "Reference setting", "-"),
+              ("transmissivity_0.01", "Crown transmissivity 0.01", "physics"),
+              ("transmissivity_0.10", "Crown transmissivity 0.10", "physics"),
+              ("crown_young_r2_h6", "Young crown (2 m radius, 6 m)", "physics"),
+              ("crown_mature_r4_h12", "Mature crown (4 m radius, 12 m)", "physics"),
+              ("wind_factor_0.3", "Street wind factor 0.3", "physics"),
+              ("wind_factor_0.7", "Street wind factor 0.7", "physics"),
+              ("beta_0.001", "Gravity decay 0.001 per m", "objective"),
+              ("beta_0.004", "Gravity decay 0.004 per m", "objective"),
+              ("threshold_24", "UTCI threshold 24 °C", "objective"),
+              ("threshold_28", "UTCI threshold 28 °C", "objective")]
+
+
+def table_sensitivity():
+    S = jload(DATA_DIR / "stage5" / "revision_round2_sensitivity.json")
+    if not S:
+        return
+    rng = lambda xs, f: f"{f.format(min(xs))}–{f.format(max(xs))}"
+    rows = []
+    for key, label, kind in SENS_LABEL:
+        pats = S["scenarios"].get(key)
+        if not pats:
+            continue
+        top, ratio, share, jac = [], [], [], []
+        for v in pats.values():
+            bs = sorted(v, key=int)
+            top.append(v[bs[-1]]["greedy"])
+            for b in bs:
+                ratio.append(v[b]["greedy"] / v[b]["random_mean"])
+                share.append(100 * v[b]["heur"] / v[b]["greedy"])
+                if "jaccard_vs_baseline_greedy" in v[b]:
+                    jac.append(v[b]["jaccard_vs_baseline_greedy"])
+        rows.append([label, rng(top, "{:.2f}"), rng(ratio, "{:.1f}"), rng(share, "{:.0f}"),
+                     rng(jac, "{:.2f}") if jac else "-"])
+    write_table("T7_sensitivity", ["Setting", "Greedy reduction at 40 % of slots (%)", "Greedy / random",
+                                   "Sun x flow heuristic, share of greedy (%)", "Slot overlap with reference greedy"],
+                rows, "Sensitivity of the allocation results to fixed modelling choices (engine-verified, four test patches)",
+                tex=dict(colspec="lrrrr", tabcolsep="4pt", size=r"\footnotesize",
+                         first=lambda s: s.replace("°", r"$^\circ$"),
+                         caption=r"Sensitivity of the allocation results to fixed modelling choices, as ranges over "
+                                 r"the four test patches and five budgets (engine-verified). Physical settings "
+                                 r"re-simulate the layouts optimised under the reference setting; objective settings "
+                                 r"re-run greedy under the new objective, and the overlap is the Jaccard index of its "
+                                 r"planted slots with the reference greedy layout. Greedy reduction is at 40\% of "
+                                 r"slots. Gravity decay is $\beta$ of the pedestrian-flow model.",
+                         head=[r"Setting & \makecell[r]{Greedy reduction\\at 40\% (\%)} & \makecell[r]{Greedy /\\random} "
+                               r"& \makecell[r]{Heuristic share\\of greedy (\%)} & \makecell[r]{Slot overlap\\with reference} \\"]))
+
+
 def table_solweig(V):
     if not V:
         return
+    R4 = jload(DATA_DIR / "stage5" / "revision_r4_verification.json")
     rows = []
     for n, d in V["designs"].items():
         a = d.get("agreement", {})
+        c = R4["designs"].get(n) if R4 else None
+        if R4:
+            du = ([f"{c[m]['mean_dUTCI_common_mask']:+.2f}" for m in ("solweig", "engine", "gnn")] +
+                  [f"{c['engine']['spread_ratio_vs_solweig']:.2f}"]) if c else ["0.00", "0.00", "0.00", "-"]
+        else:
+            du = [f"{d[m]['mean_dUTCI_affected']:+.2f}" for m in ("solweig", "engine", "gnn")]
         rows.append([n.replace("_", " "), d["trees"], f"{d['solweig']['dose_reduction_pct']:.2f}",
-                     f"{d['engine']['dose_reduction_pct']:.2f}", f"{d['gnn']['dose_reduction_pct']:.2f}",
-                     f"{d['solweig']['mean_dUTCI_affected']:+.2f}", f"{d['engine']['mean_dUTCI_affected']:+.2f}",
-                     f"{d['gnn']['mean_dUTCI_affected']:+.2f}",
-                     f"{a['corr_gnn_vs_solweig']:.2f}" if a else "-"])
-    write_table("T6_solweig_verification", ["Design", "Trees", "Dose red. SOLWEIG (%)", "Dose red. engine (%)",
-                                            "Dose red. GNN (%)", "dUTCI SOLWEIG (°C)", "dUTCI engine (°C)",
-                                            "dUTCI GNN (°C)", "corr(GNN, SOLWEIG)"], rows,
-                "Independent SOLWEIG-GPU verification of five Pareto designs (Rotterdam Centrum, unseen city); "
-                "dUTCI = mean over affected segment-hours",
-                tex=dict(colspec="lrrrrrrrr", tabcolsep="4.5pt",
-                         first=lambda s: s[0].upper() + s[1:],
-                         caption=r"Independent SOLWEIG-GPU verification of five Pareto designs in Rotterdam Centrum, an "
-                                 r"unseen city. Dose reduction is relative to each model's own run without new trees; "
-                                 r"$\Delta$UTCI is the mean over affected segment-hours; $r$ is the per-segment-hour "
-                                 r"correlation of $\Delta$UTCI between the GNN and SOLWEIG-GPU.",
-                         head=[r" & & \multicolumn{3}{c}{Dose reduction (\%)} & "
-                               r"\multicolumn{3}{c}{Mean $\Delta$UTCI ($^\circ$C)} & \\",
-                               r"\cmidrule(lr){3-5}\cmidrule(lr){6-8}",
-                               r"Design & Trees & SOLWEIG & Engine & GNN & SOLWEIG & Engine & GNN & $r$ \\"]))
+                     f"{d['engine']['dose_reduction_pct']:.2f}", f"{d['gnn']['dose_reduction_pct']:.2f}"] + du +
+                    [f"{a['corr_gnn_vs_solweig']:.2f}" if a else "-"])
+    if R4:
+        header = ["Design", "Trees", "Dose red. SOLWEIG (%)", "Dose red. engine (%)", "Dose red. GNN (%)",
+                  "dUTCI SOLWEIG (°C)", "dUTCI engine (°C)", "dUTCI GNN (°C)", "Cooled share engine/SOLWEIG",
+                  "corr(GNN, SOLWEIG)"]
+        cap = (r"Cross-model verification of five Pareto designs with SOLWEIG-GPU in Rotterdam Centrum, an unseen "
+               r"city. Dose reduction is relative to each model's own run without new trees. $\Delta$UTCI is the mean "
+               r"over the segment-hours that SOLWEIG-GPU cools by more than 0.05~$^\circ$C, a mask common to all "
+               r"three models. Cooled share: segment-hours the engine cools by more than 0.05~$^\circ$C, relative to "
+               r"SOLWEIG-GPU. $r$ is the per-segment-hour correlation of $\Delta$UTCI between the GNN and SOLWEIG-GPU.")
+        colspec, sep = "lrrrrrrrrr", "3pt"
+        head = [r" & & \multicolumn{3}{c}{Dose reduction (\%)} & "
+                r"\multicolumn{3}{c}{Mean $\Delta$UTCI ($^\circ$C)} & & \\",
+                r"\cmidrule(lr){3-5}\cmidrule(lr){6-8}",
+                r"Design & Trees & SOLWEIG & Engine & GNN & SOLWEIG & Engine & GNN & Cooled share & $r$ \\"]
+    else:
+        header = ["Design", "Trees", "Dose red. SOLWEIG (%)", "Dose red. engine (%)", "Dose red. GNN (%)",
+                  "dUTCI SOLWEIG (°C)", "dUTCI engine (°C)", "dUTCI GNN (°C)", "corr(GNN, SOLWEIG)"]
+        cap = (r"Independent SOLWEIG-GPU verification of five Pareto designs in Rotterdam Centrum, an "
+               r"unseen city. Dose reduction is relative to each model's own run without new trees; "
+               r"$\Delta$UTCI is the mean over affected segment-hours; $r$ is the per-segment-hour "
+               r"correlation of $\Delta$UTCI between the GNN and SOLWEIG-GPU.")
+        colspec, sep = "lrrrrrrrr", "4.5pt"
+        head = [r" & & \multicolumn{3}{c}{Dose reduction (\%)} & "
+                r"\multicolumn{3}{c}{Mean $\Delta$UTCI ($^\circ$C)} & \\",
+                r"\cmidrule(lr){3-5}\cmidrule(lr){6-8}",
+                r"Design & Trees & SOLWEIG & Engine & GNN & SOLWEIG & Engine & GNN & $r$ \\"]
+    write_table("T6_solweig_verification", header, rows,
+                "Cross-model SOLWEIG-GPU verification of five Pareto designs (Rotterdam Centrum, unseen city); "
+                "dUTCI = mean over segment-hours SOLWEIG cools by > 0.05 °C (common mask)",
+                tex=dict(colspec=colspec, tabcolsep=sep, first=lambda s: s[0].upper() + s[1:], caption=cap, head=head))
 
 
 # --------------------------------------------------------------------------- figures
@@ -364,7 +453,7 @@ def fig_parity():
     ck = DATA_DIR / "models" / "heatgraph_edgemlp_v2_patchval.pt"
     fig, ax = plt.subplots(1, 2, figsize=(6.4, 3.0), sharey=True)
     for a, (title, pids) in zip(ax, [("a  Rotterdam (unseen city)", [p for p in TEST if p.startswith("rot_")]),
-                                     ("b  Freiburg (unseen city + data)", ["xfer_freiburg_altstadt"])]):
+                                     ("b  Freiburg (other country, imputed heights)",["xfer_freiburg_altstadt"])]):
         dt, dp = [], []
         for pid in pids:
             s = load_scene(DATA_DIR / "processed" / pid)
@@ -403,7 +492,7 @@ def fig_density():
         return
     x = [100 * (b["lo"] + b["hi"]) / 2 for b in d["by_bin"]]
     fig, ax = plt.subplots(figsize=(3.4, 2.6))
-    for key, col, mk, lab in (("gnn", BLUE, "o", "GNN (v2)"), ("linear", ORANGE, "s", "Linear physics"),
+    for key, col, mk, lab in (("gnn", BLUE, "o", "GNN (crown-shadow edges)"), ("linear", ORANGE, "s", "Linear physics"),
                               ("zero", MUTED, "^", "No-change reference")):
         v = [b[key] for b in d["by_bin"]]
         ax.plot(x, v, color=col, marker=mk, ms=5, ls="--" if key == "zero" else "-", label=lab)
@@ -430,6 +519,11 @@ def fig_benchmark(B):
         rnd = np.array([tab[("random", b)] for b in r["budgets"]])
         a.fill_between(bx, rnd.min(1), rnd.max(1), color=GRID, lw=0, label="random (range)")
         a.plot(bx, rnd.mean(1), color=MUTED, marker="^", ms=4, lw=1.2, label="random (mean)")
+        if ("heur_sun", r["budgets"][0]) in tab:
+            a.plot(bx, [np.mean(tab[("heur_sun", b)]) for b in r["budgets"]], color=INK2, marker="v", ms=4,
+                   lw=1.0, ls=":", label="heuristic: sun only")
+            a.plot(bx, [np.mean(tab[("heur_sunflow", b)]) for b in r["budgets"]], color=INK2, marker="D", ms=3.5,
+                   lw=1.1, ls="--", label="heuristic: sun × flow")
         a.plot(bx, [np.mean(tab[("greedy", b)]) for b in r["budgets"]], color=AQUA, marker="o", ms=8,
                mfc="white", mew=1.6, lw=1.4, label="greedy (linear)")
         a.plot(bx, [np.mean(tab[("nsga_linear", b)]) for b in r["budgets"]], color=ORANGE, marker="s", ms=5,
@@ -441,7 +535,7 @@ def fig_benchmark(B):
         a.set_xticks([5, 10, 20, 30, 40])
     axes[0].set_ylabel("Engine-verified heat-dose\nreduction (%)")
     h, lab = axes[0].get_legend_handles_labels()
-    fig.legend(h, lab, loc="upper center", ncol=5, bbox_to_anchor=(0.5, -0.02))
+    fig.legend(h, lab, loc="upper center", ncol=4 if len(h) > 5 else 5, bbox_to_anchor=(0.5, -0.02))
     save(fig, "F5_benchmark_unseen_cities")
 
 
@@ -551,6 +645,7 @@ def main(tables_only=False):
     spec = table_surrogates()
     table_benchmark(B)
     table_solweig(V)
+    table_sensitivity()
     if tables_only:
         return
     fig_engine_validation()

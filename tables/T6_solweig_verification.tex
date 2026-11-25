@@ -1,20 +1,20 @@
 \begin{table}[tbp]
 \centering
 \small
-\setlength{\tabcolsep}{4.5pt}
-\caption{Independent SOLWEIG-GPU verification of five Pareto designs in Rotterdam Centrum, an unseen city. Dose reduction is relative to each model's own run without new trees; $\Delta$UTCI is the mean over affected segment-hours; $r$ is the per-segment-hour correlation of $\Delta$UTCI between the GNN and SOLWEIG-GPU.}
+\setlength{\tabcolsep}{3pt}
+\caption{Cross-model verification of five Pareto designs with SOLWEIG-GPU in Rotterdam Centrum, an unseen city. Dose reduction is relative to each model's own run without new trees. $\Delta$UTCI is the mean over the segment-hours that SOLWEIG-GPU cools by more than 0.05~$^\circ$C, a mask common to all three models. Cooled share: segment-hours the engine cools by more than 0.05~$^\circ$C, relative to SOLWEIG-GPU. $r$ is the per-segment-hour correlation of $\Delta$UTCI between the GNN and SOLWEIG-GPU.}
 \label{tab:T6_solweig_verification}
-\begin{tabular}{lrrrrrrrr}
+\begin{tabular}{lrrrrrrrrr}
 \toprule
- & & \multicolumn{3}{c}{Dose reduction (\%)} & \multicolumn{3}{c}{Mean $\Delta$UTCI ($^\circ$C)} & \\
+ & & \multicolumn{3}{c}{Dose reduction (\%)} & \multicolumn{3}{c}{Mean $\Delta$UTCI ($^\circ$C)} & & \\
 \cmidrule(lr){3-5}\cmidrule(lr){6-8}
-Design & Trees & SOLWEIG & Engine & GNN & SOLWEIG & Engine & GNN & $r$ \\
+Design & Trees & SOLWEIG & Engine & GNN & SOLWEIG & Engine & GNN & Cooled share & $r$ \\
 \midrule
-None & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & -- \\
-Low budget & 25 & 2.40 & 2.16 & 2.14 & $-$0.63 & $-$1.88 & $-$1.68 & 0.94 \\
-Knee & 37 & 3.20 & 2.82 & 2.79 & $-$0.70 & $-$1.90 & $-$1.73 & 0.94 \\
-High budget & 75 & 5.08 & 4.18 & 4.09 & $-$0.77 & $-$1.91 & $-$1.74 & 0.91 \\
-Max cooling & 100 & 5.92 & 4.75 & 4.66 & $-$0.80 & $-$1.86 & $-$1.72 & 0.91 \\
+None & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & 0.00 & -- & -- \\
+Low budget & 25 & 2.40 & 2.16 & 2.14 & $-$0.63 & $-$0.59 & $-$0.60 & 0.32 & 0.94 \\
+Knee & 37 & 3.20 & 2.82 & 2.79 & $-$0.70 & $-$0.64 & $-$0.65 & 0.34 & 0.94 \\
+High budget & 75 & 5.08 & 4.18 & 4.09 & $-$0.77 & $-$0.66 & $-$0.65 & 0.35 & 0.91 \\
+Max cooling & 100 & 5.92 & 4.75 & 4.66 & $-$0.80 & $-$0.67 & $-$0.67 & 0.36 & 0.91 \\
 \bottomrule
 \end{tabular}
 \end{table}

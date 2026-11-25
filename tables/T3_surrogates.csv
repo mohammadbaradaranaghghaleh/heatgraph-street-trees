@@ -1,6 +1,6 @@
 Model,Rotterdam dMAE (°C),Rotterdam corr,Rotterdam skill (%),Freiburg dMAE (°C),Freiburg corr,Freiburg skill (%)
-GATv2 attention (v1 features),0.291,0.164,-57,0.277,0.167,-44
-"Sum aggregation, v1, within-patch val.",0.099,0.837,47,0.117,0.788,39
-"Sum aggregation, v1, leave-patch-out val.",0.101,0.833,45,0.118,0.789,39
-Linear model on v2 physics features,0.067,0.902,64,0.089,0.865,53
-"Sum aggregation, v2 physics edges (ours)",0.063,0.906,66,0.075,0.879,61
+"GATv2 attention, geometric edges",0.291,0.164,-57,0.277,0.167,-44
+"Sum aggregation, geometric edges, within-patch val.",0.099,0.837,47,0.117,0.788,39
+"Sum aggregation, geometric edges, leave-patch-out val.",0.101,0.833,45,0.118,0.789,39
+Linear model on crown-shadow features,0.067,0.902,64,0.089,0.865,53
+"Sum aggregation, crown-shadow edges (ours)",0.063,0.906,66,0.075,0.879,61

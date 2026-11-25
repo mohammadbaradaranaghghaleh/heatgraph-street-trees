@@ -1,0 +1,24 @@
+\begin{table}[tbp]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\caption{Sensitivity of the allocation results to fixed modelling choices, as ranges over the four test patches and five budgets (engine-verified). Physical settings re-simulate the layouts optimised under the reference setting; objective settings re-run greedy under the new objective, and the overlap is the Jaccard index of its planted slots with the reference greedy layout. Greedy reduction is at 40\% of slots. Gravity decay is $\beta$ of the pedestrian-flow model.}
+\label{tab:T7_sensitivity}
+\begin{tabular}{lrrrr}
+\toprule
+Setting & \makecell[r]{Greedy reduction\\at 40\% (\%)} & \makecell[r]{Greedy /\\random} & \makecell[r]{Heuristic share\\of greedy (\%)} & \makecell[r]{Slot overlap\\with reference} \\
+\midrule
+Reference setting & 4.75–7.25 & 1.8–6.0 & 46–85 & -- \\
+Crown transmissivity 0.01 & 4.85–7.43 & 1.8–6.0 & 46–85 & -- \\
+Crown transmissivity 0.10 & 4.36–6.62 & 1.8–6.0 & 46–85 & -- \\
+Young crown (2 m radius, 6 m) & 2.30–3.39 & 1.9–7.7 & 46–81 & -- \\
+Mature crown (4 m radius, 12 m) & 7.77–11.55 & 1.7–4.6 & 57–88 & -- \\
+Street wind factor 0.3 & 4.70–7.17 & 1.8–6.0 & 46–85 & -- \\
+Street wind factor 0.7 & 4.84–7.42 & 1.8–6.0 & 46–85 & -- \\
+Gravity decay 0.001 per m & 4.77–7.27 & 1.8–5.8 & 46–85 & 0.85–1.00 \\
+Gravity decay 0.004 per m & 4.69–7.22 & 1.8–6.4 & 46–86 & 0.71–0.96 \\
+UTCI threshold 24 $^\circ$C & 4.07–6.22 & 1.8–6.0 & 47–85 & 0.85–1.00 \\
+UTCI threshold 28 $^\circ$C & 5.60–8.52 & 1.8–5.8 & 46–86 & 0.71–1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}

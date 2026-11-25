@@ -111,6 +111,105 @@ def main():
     a = [d["agreement"] for n, d in V["designs"].items() if n != "none"]
     F["corr_gnn_solweig_range"] = [min(x["corr_gnn_vs_solweig"] for x in a), max(x["corr_gnn_vs_solweig"] for x in a)]
     F["corr_engine_solweig_range"] = [min(x["corr_engine_vs_solweig"] for x in a), max(x["corr_engine_vs_solweig"] for x in a)]
+    # ---- revision R4: SOLWEIG comparison on a common mask (scripts/12_revision_experiments.py --part verify)
+    R4 = j(D / "stage5" / "revision_r4_verification.json")
+    F["r4"] = R4["designs"]
+    rng = lambda xs: [min(xs), max(xs)]
+    r4 = list(R4["designs"].values())
+    F["r4_mean_under_engine_pct_range"] = rng([100 * (1 - d["engine"]["mean_dUTCI_common_mask"] /
+                                                       d["solweig"]["mean_dUTCI_common_mask"]) for d in r4])
+    F["r4_mean_under_gnn_pct_range"] = rng([100 * (1 - d["gnn"]["mean_dUTCI_common_mask"] /
+                                                    d["solweig"]["mean_dUTCI_common_mask"]) for d in r4])
+    F["r4_bias_strong_engine_range"] = rng([d["engine"]["bias_strong_cooling"] for d in r4])
+    F["r4_bias_weak_engine_range"] = rng([d["engine"]["bias_weak_cooling"] for d in r4])
+    F["r4_bias_strong_gnn_range"] = rng([d["gnn"]["bias_strong_cooling"] for d in r4])
+    F["r4_spread_engine_range"] = rng([d["engine"]["spread_ratio_vs_solweig"] for d in r4])
+    F["r4_spread_gnn_range"] = rng([d["gnn"]["spread_ratio_vs_solweig"] for d in r4])
+    # ---- revision R2/R3: practitioner heuristics and unseeded NSGA-III (scripts/12_revision_experiments.py --part bench)
+    RV = {p: j(D / "stage5" / p / "revision_r2r3.json") for p in B
+          if (D / "stage5" / p / "revision_r2r3.json").exists()}
+    if RV:
+        share = {m: [r["share_of_greedy_pct"] for v in RV.values() for r in v["rows"] if r["method"] == m]
+                 for m in ("heur_sunflow", "heur_sun", "nsga_unseeded")}
+        F["rev_share_of_greedy_pct_range"] = {m: rng(v) for m, v in share.items()}
+        F["rev_heur_vs_random_ratio_range"] = {
+            m: rng([r["engine_dose_reduction_pct"] / r["random_mean_pct"] for v in RV.values() for r in v["rows"]
+                    if r["method"] == m]) for m in ("heur_sunflow", "heur_sun")}
+        F["rev_unseeded_minus_greedy_pp_range"] = rng([r["engine_dose_reduction_pct"] - r["greedy_pct"]
+                                                       for v in RV.values() for r in v["rows"]
+                                                       if r["method"] == "nsga_unseeded"])
+        F["rev_hv"] = {p: {k: v["hypervolume_engine_normalised"][k] for k in ("seeded", "unseeded", "greedy_budgets")}
+                       for p, v in RV.items()}
+        F["rev_hv_unseeded_vs_seeded_pct_range"] = rng([100 * (h["unseeded"] / h["seeded"] - 1)
+                                                        for h in F["rev_hv"].values()])
+        F["rev_bench"] = {p: {f"{r['method']}_{r['budget']}": r["engine_dose_reduction_pct"] for r in v["rows"]}
+                          for p, v in RV.items()}
+    # ---- revision round 2 (scripts/13_revision_round2.py)
+    p = D / "stage5" / "revision_round2_coverage.json"
+    if p.exists():
+        C = j(p)
+        F["r5_cov_pooled_plantings"] = C["pooled"]["plantings"]
+        F["r5_cov_plantings_range"] = rng([v["plantings"] for v in C["patches"].values()])
+        F["r5_cov_optimised_range"] = rng([v["optimised"] for v in C["patches"].values()])
+        F["r5_cov_optimised_hour_min"] = min(v["optimised_by_hour_min"] for v in C["patches"].values())
+        F["r5_q_by_hour_range"] = C["q_gnn_by_hour_range"]
+    p = D / "stage5" / "revision_round2_equity.json"
+    if p.exists():
+        Q = [r for v in j(p)["patches"].values() for r in v["rows"]]
+        hi = [r["gain_highest_pp"] for r in Q]
+        lo = [r["gain_lowest_pp"] for r in Q]
+        F["r7_n_cases"] = len(Q)
+        F["r7_n_lowest_less"] = sum(x < -0.005 for x in lo)
+        F["r7_n_highest_more"] = sum(x > 0.005 for x in hi)
+        F["r7_lowest_loss_max_pp"] = -min(lo)
+        F["r7_highest_gain_max_pp"] = max(hi)
+        F["r7_highest_gain_median_pp"] = float(np.median(hi))
+        F["r7_any_worse_than_none"] = any(r["any_district_worse_than_none"] for r in Q)
+    p = D / "stage5" / "revision_round2_seeds.json"
+    if p.exists():
+        S = j(p)
+        sd_dose, gap, th_sd, th_mean = [], [], [], []
+        for v in S["patches"].values():
+            for b in v["budgets"]:
+                x = [r["dose_reduction_pct"][str(b)] for r in v["runs"]]
+                sd_dose.append(float(np.std(x, ddof=1)))
+                gap += [xi - v["greedy_pct"][str(b)] for xi in x]
+                t = [r["theil_change_pct"][str(b)] for r in v["runs"] if r["theil_change_pct"][str(b)] is not None]
+                if len(t) > 1:
+                    th_sd.append(float(np.std(t, ddof=1))); th_mean.append(float(np.mean(t)))
+        F["r8_n_seeds"] = len(S["seeds"])
+        F["r8_dose_sd_max_pp"] = max(sd_dose)
+        F["r8_gap_vs_greedy_range_pp"] = rng(gap)
+        F["r8_theil_sd_range"] = rng(th_sd)
+        F["r8_theil_mean_best"] = min(th_mean)
+        allt = [r["theil_change_pct"][str(b)] for v in S["patches"].values() for b in v["budgets"] for r in v["runs"]]
+        F["r8_theil_n_total"] = len(allt)
+        F["r8_theil_n_improve"] = sum(t is not None and t < -0.05 for t in allt)
+        F["r8_theil_n_worse"] = sum(t is not None and t > 0.05 for t in allt)
+        F["r8_theil_median"] = float(np.median([t for t in allt if t is not None]))
+    p = D / "stage5" / "revision_round2_sensitivity.json"
+    if p.exists():
+        SN = j(p)["scenarios"]
+        sens = {}
+        for name, pats in SN.items():
+            ratio, share, red40, jac, reopt = [], [], [], [], []
+            for v in pats.values():
+                bs = sorted(v, key=int)
+                for b in bs:
+                    x = v[b]
+                    ratio.append(x["greedy"] / x["random_mean"])
+                    share.append(100 * x["heur"] / x["greedy"])
+                    if "jaccard_vs_baseline_greedy" in x:
+                        jac.append(x["jaccard_vs_baseline_greedy"])
+                        reopt.append(x["greedy_reoptimised"] - x["greedy"])
+                red40.append(v[bs[-1]]["greedy"])
+            sens[name] = {"ratio_range": rng(ratio), "heur_share_range": rng(share), "greedy_top_range": rng(red40)}
+            if jac:
+                sens[name]["jaccard_range"] = rng(jac)
+                sens[name]["reopt_gain_pp_range"] = rng(reopt)
+        F["r6"] = sens
+        F["r6_ratio_min_all"] = min(v["ratio_range"][0] for v in sens.values())
+        F["r6_heur_share_max_all"] = max(v["heur_share_range"][1] for v in sens.values())
     (ROOT / "manuscript" / "facts.json").write_text(json.dumps(F, indent=2, default=float), encoding="utf-8")
     print(json.dumps({k: F[k] for k in F if k not in ("held_out", "bench", "solweig", "density", "split")}, indent=1,
                      default=float))

@@ -53,7 +53,8 @@ for kind, name in envs:
 check(not stack, f"unclosed environments: {stack}")
 for i in range(1, 8):
     check(re.search(rf"\\ref\{{fig:F{i}\}}", body), f"Fig. F{i} never referenced")
-for t in ("T1_patches", "T2_engine_vs_solweig", "T3_surrogates", "T4_benchmark", "T5_equity", "T6_solweig_verification"):
+for t in ("T1_patches", "T2_engine_vs_solweig", "T3_surrogates", "T4_benchmark", "T5_equity", "T6_solweig_verification",
+          "T7_sensitivity"):
     check(f"tables/{t}" in body, f"table {t} not input")
     check(f"tab:{t}" in body.replace("\\ref{", ""), f"table {t} never referenced")
 
@@ -132,6 +133,55 @@ expect = {
     "corr eng": (f"{f2(F['corr_engine_solweig_range'][0])}--{f2(F['corr_engine_solweig_range'][1])}", ""),
     "max cool": (f"${sol['high_budget']['solweig']['max_cooling']:.2f}$~\\degC, against ${sol['high_budget']['engine']['max_cooling']:.2f}$", ""),
 }
+# revision R2/R3/R4 (scripts/12_revision_experiments.py)
+rr = lambda k, fmt="{:.0f}": f"{fmt.format(k[0])}--{fmt.format(k[1])}"
+rs = F["rev_share_of_greedy_pct_range"]
+expect.update({
+    "heur sunflow share": (f"achieved {rr(rs['heur_sunflow'])}\\% of greedy's reduction", ""),
+    "heur sun share": (f"sun-only rule achieved {rr(rs['heur_sun'])}\\% of greedy's reduction", ""),
+    "heur vs random": (f"{rr(F['rev_heur_vs_random_ratio_range']['heur_sunflow'], '{:.1f}')} times the reduction of random", ""),
+    "unseeded share": (f"reached only {rr(rs['nsga_unseeded'])}\\% of greedy's reduction", ""),
+    "unseeded hv": (f"front was {rr([-x for x in F['rev_hv_unseeded_vs_seeded_pct_range'][::-1]])}\\% lower", ""),
+    "abstract heur": (f"achieved only {rr(rs['heur_sunflow'])}\\% of that reduction, and {rr(rs['heur_sun'])}\\% when", ""),
+    "r4 mean": (f"engine's mean cooling was {rr(F['r4_mean_under_engine_pct_range'])}\\% smaller", ""),
+    "r4 strong": (f"by {rr([-x for x in F['r4_bias_strong_engine_range'][::-1]], '{:.2f}')}~\\degC{{}} on average", ""),
+    "r4 weak": (f"it cooled less, by {rr(F['r4_bias_weak_engine_range'], '{:.2f}')}~\\degC", ""),
+    "r4 spread": (f"only {rr([100 * x for x in F['r4_spread_engine_range']])}\\% as many segment-hours", ""),
+    "r4 peak": (f"by up to {-F['r4_bias_strong_engine_range'][0]:.2f}~\\degC{{}} on average", ""),
+    # round 2
+    "r5 q": (f"ranged from {F['r5_q_by_hour_range'][0]:.2f}~\\degC{{}} in the early morning to {F['r5_q_by_hour_range'][1]:.2f}~\\degC", ""),
+    "r5 plantings": (f"covered {100 * F['r5_cov_pooled_plantings']:.0f}\\% of segment-hours when pooled and "
+                     f"{rr([100 * x for x in F['r5_cov_plantings_range']])}\\% per patch", ""),
+    "r5 optimised": (f"at {rr([100 * x for x in F['r5_cov_optimised_range']])}\\% per patch and as low as "
+                     f"{100 * F['r5_cov_optimised_hour_min']:.0f}\\% at single hours", ""),
+    "r7": (f"In {F['r7_n_lowest_less']} of the {F['r7_n_cases']} patch--budget combinations", ""),
+    "r7 loss": (f"by up to {F['r7_lowest_loss_max_pp']:.2f} percentage points", ""),
+    "r7 gain": (f"more cooling in {F['r7_n_highest_more']} combinations, but by at most "
+                f"{F['r7_highest_gain_max_pp']:.2f} percentage points and with a median of {F['r7_highest_gain_median_pp']:.2f}", ""),
+})
+if "r6" in F:
+    s6 = F["r6"]
+    obj = [k for k in s6 if "jaccard_range" in s6[k]]
+    expect.update({
+        "r6 crown": (f"by {rr(s6['crown_young_r2_h6']['greedy_top_range'], '{:.2f}')}\\%, and with mature crowns by "
+                     f"{rr(s6['crown_mature_r4_h12']['greedy_top_range'], '{:.2f}')}\\%, against "
+                     f"{rr(s6['baseline']['greedy_top_range'], '{:.2f}')}\\%", ""),
+        "r6 ratio": (f"at least {F['r6_ratio_min_all']:.1f} times more than random", ""),
+        "r6 heur": (f"never exceeded {F['r6_heur_share_max_all']:.0f}\\% of greedy's reduction", ""),
+        "r6 jaccard": (f"Jaccard index of {min(s6[k]['jaccard_range'][0] for k in obj):.2f}--"
+                       f"{max(s6[k]['jaccard_range'][1] for k in obj):.2f}", ""),
+        "r6 reopt": (f"gained at most {max(s6[k]['reopt_gain_pp_range'][1] for k in obj):.2f} percentage points", ""),
+    })
+if "r8_n_seeds" in F:
+    expect.update({
+        "r8 sd": (f"standard deviation of at most {F['r8_dose_sd_max_pp']:.2f} percentage points and stayed within "
+                  f"${F['r8_gap_vs_greedy_range_pp'][0]:.2f}$ to $+{F['r8_gap_vs_greedy_range_pp'][1]:.2f}$ points", ""),
+        "r8 eq": (f"found in {F['r8_theil_n_improve']} of the {F['r8_theil_n_total']} patch--budget--seed combinations, "
+                  f"with a median change of ${F['r8_theil_median']:.1f}$\\%", ""),
+        "r8 eq sd": (f"standard deviation of up to {F['r8_theil_sd_range'][1]:.1f} percentage points, and in "
+                     f"{F['r8_theil_n_worse']} combinations", ""),
+    })
+check(not F["r7_any_worse_than_none"], "R7: a district gets more dose than without trees, but the text says none does")
 for name, (s, _) in expect.items():
     check(s in body, f"number '{name}': expected text '{s}' not found")
 # all benchmark patches must report the same evaluation budget quoted in the text
@@ -188,19 +238,23 @@ WHITELIST = {
     "2024": "year", "7": "Fig/Table", "64": "n/a", "1.8": "ratio", "6.0": "ratio", "3.0": "n/a", "0.30": "albedo",
     "1.36": "cal", "0.40": "cal", "9": "n/a", "60": "n/a", "0.0": "T5 range", "1.7": "T5 range", "13": "n/a",
     "5070": "GPU model name (RTX 5070)", "256": "SHA-256 hash name",
+    "0.004": "sensitivity beta", "0.001": "sensitivity beta", "0.01": "sensitivity transmissivity",
+    "0.10": "sensitivity transmissivity", "0.3": "sensitivity wind factor", "0.7": "sensitivity wind factor",
+    "24": "sensitivity threshold", "28": "sensitivity threshold", "6": "young crown height", "12": "mature crown height",
+    "4.0": "CC BY 4.0 licence", "0.05": "affected threshold",
 }
 # context-anchored checks: headline numbers must appear in THEIR sentence (catches wrong duplicates)
 r_, t_ = v2["test_city"], v2["transfer"]
 ANCHORS = [
     f"in an unseen city with an error of {f3(r_['change_mae'])}~\\degC",
-    f"Under lower-quality input data the error was {f3(t_['change_mae'])}~\\degC, {pct(skill(r_))}\\% and {pct(skill(t_))}\\% below",
+    f"largely imputed, the error was {f3(t_['change_mae'])}~\\degC. The two errors were {pct(skill(r_))}\\% and {pct(skill(t_))}\\% below",
     f"reduced the change error to {f3(r_['change_mae'])}~\\degC{{}} in Rotterdam, with a correlation of {f3(r_['change_corr'])} "
     f"and a UTCI error of {f3(r_['mae'])}~\\degC",
     f"In Freiburg the change error was {f3(t_['change_mae'])}~\\degC, with a correlation of {f3(t_['change_corr'])} "
     f"and a UTCI error of {f3(t_['mae'])}~\\degC",
     f"Validation and unseen-city errors agreed ({f3(v2['val']['change_mae'])} versus {f3(r_['change_mae'])}~\\degC)",
     f"with an error of {f3(r_['change_mae'])}~\\degC{{}} and a correlation of {f3(r_['change_corr'])}",
-    f"Under lower-quality input data its error was {f3(t_['change_mae'])}~\\degC",
+    f"with largely imputed building heights its error was {f3(t_['change_mae'])}~\\degC",
     f"came within {pct(100 * (1 - r_['change_mae'] / lin['test_city']['change_mae']))}\\% of the GNN in Rotterdam",
     f"reduced engine-verified pedestrian heat dose {F['opt_vs_random_ratio_range'][0]:.1f}--{F['opt_vs_random_ratio_range'][1]:.1f} times more",
     f"by up to {-F['equity_best'][0]:.1f}\\% at 90\\% of greedy's cooling",

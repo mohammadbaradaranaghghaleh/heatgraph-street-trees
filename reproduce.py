@@ -5,7 +5,7 @@
     python reproduce.py --full --i-understand-this-overwrites-results   # whole pipeline from downloads (hours, GPU)
 
 Default mode (non-destructive)
-  1. regenerates the 7 figures and 6 tables from the released results into reproduction/
+  1. regenerates the 7 figures and 7 tables from the released results into reproduction/
      (never touches figures/, tables/, manuscript/ or data/);
   2. compares every table byte-for-byte with tables/ and every figure pixel-wise with figures/*.png;
   3. rebuilds the manuscript's numeric facts in a scratch root and compares them with manuscript/facts.json;
@@ -44,9 +44,10 @@ REQUIRED = [  # released result files needed by the default mode
     "data/models/metrics_linear_physics.json", "data/models/density_analysis.json",
     "data/models/physics_feature_corr.json", "data/models/heatgraph_edgemlp_v2_patchval.pt",
     "data/stage5/conformal.json", "data/stage5/rot_centrum/solweig_verification.json",
-    "data/stage5/rot_centrum/solweig_verification_arrays.npz",
-] + [f"data/stage5/{p}/{f}" for p in ("rot_centrum", "rot_kop_van_zuid", "rot_oude_westen", "xfer_freiburg_altstadt")
-     for f in ("results.json", "designs.npz")] \
+    "data/stage5/rot_centrum/solweig_verification_arrays.npz", "data/stage5/revision_r4_verification.json",
+] + [f"data/stage5/revision_round2_{p}.json" for p in ("coverage", "equity", "sensitivity", "seeds")] \
+  + [f"data/stage5/{p}/{f}" for p in ("rot_centrum", "rot_kop_van_zuid", "rot_oude_westen", "xfer_freiburg_altstadt")
+     for f in ("results.json", "designs.npz", "revision_r2r3.json")] \
   + [f"data/processed/{p}/{f}" for p in ("rot_centrum", "rot_kop_van_zuid", "rot_oude_westen", "xfer_freiburg_altstadt")
      for f in ("scene.npz", "scene.json", "labels.npz", "weather.csv")]
 
@@ -68,6 +69,8 @@ FULL_PIPELINE = [
     ("optimisation benchmark", ["scripts/08_benchmark.py"]),
     ("SOLWEIG-GPU verification", ["scripts/09_solweig_verify.py"]),
     ("physics-feature correlation", ["scripts/11_feature_correlation.py"]),
+    ("practitioner heuristics, unseeded NSGA-III, SOLWEIG common mask", ["scripts/12_revision_experiments.py"]),
+    ("conformal coverage, district equity, sensitivity, seed stability", ["scripts/13_revision_round2.py"]),
 ]
 # file names expected by the figure script for the within-patch-validation runs
 RENAMES = {"metrics_edgemlp_v1_plantingval.json": "metrics_edgemlp.json",
@@ -229,7 +232,7 @@ def main(argv=None) -> int:
         for p in problems:
             log(f"  - {p}")
         return 1
-    log(f"OK: 6 tables byte-identical, 7 figures within tolerance, facts and manuscript consistent "
+    log(f"OK: 7 tables byte-identical, 7 figures within tolerance, facts and manuscript consistent "
         f"({summary['seconds']:.0f} s). Report: {out.relative_to(ROOT) / 'reproduction_report.json'}")
     return 0
 

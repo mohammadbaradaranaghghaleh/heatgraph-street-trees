@@ -2,7 +2,7 @@
 \centering
 \small
 \setlength{\tabcolsep}{5pt}
-\caption{Surrogate accuracy on the tree-induced change in segment UTCI in unseen cities. Sum, sum-aggregation GNN; GATv2, attention GNN; v1/v2, edge features without/with crown-shadow and under-crown terms; val., model-selection protocol. MAE, mean absolute error of the change against the engine; $r$, Pearson correlation; skill $= 1 - \mathrm{MAE}/\mathrm{MAE}_0$, where $\mathrm{MAE}_0$ is the error of predicting no change. Rotterdam is an unseen city; Freiburg is an unseen city with imputed building heights.}
+\caption{Surrogate accuracy on the tree-induced change in segment UTCI in unseen cities. Sum, sum-aggregation GNN; GATv2, attention GNN; geometric/crown-shadow, slot-to-segment edges without/with the crown-shadow and under-crown features; planting/patch val., model selection on held-out plantings of the training patches or on whole held-out patches. MAE, mean absolute error of the change against the engine; $r$, Pearson correlation; skill $= 1 - \mathrm{MAE}/\mathrm{MAE}_0$, where $\mathrm{MAE}_0$ is the error of predicting no change. Rotterdam is an unseen Dutch city with lidar-based heights (3DBAG); Freiburg is an unseen German city whose heights come from another source and are largely imputed, a shift in country and input regime.}
 \label{tab:T3_surrogates}
 \begin{tabular}{lrrrrrr}
 \toprule
@@ -10,11 +10,11 @@
 \cmidrule(lr){2-4}\cmidrule(lr){5-7}
 Model & MAE ($^\circ$C) & $r$ & Skill (\%) & MAE ($^\circ$C) & $r$ & Skill (\%) \\
 \midrule
-GATv2, v1 & 0.291 & 0.164 & $-$57 & 0.277 & 0.167 & $-$44 \\
-Sum, v1, within-patch val. & 0.099 & 0.837 & 47 & 0.117 & 0.788 & 39 \\
-Sum, v1, leave-patch-out val. & 0.101 & 0.833 & 45 & 0.118 & 0.789 & 39 \\
-Linear model, v2 & 0.067 & 0.902 & 64 & 0.089 & 0.865 & 53 \\
-Sum, v2 (ours) & 0.063 & 0.906 & 66 & 0.075 & 0.879 & 61 \\
+GATv2, geometric & 0.291 & 0.164 & $-$57 & 0.277 & 0.167 & $-$44 \\
+Sum, geometric, planting val. & 0.099 & 0.837 & 47 & 0.117 & 0.788 & 39 \\
+Sum, geometric, patch val. & 0.101 & 0.833 & 45 & 0.118 & 0.789 & 39 \\
+Linear, crown-shadow & 0.067 & 0.902 & 64 & 0.089 & 0.865 & 53 \\
+Sum, crown-shadow (ours) & 0.063 & 0.906 & 66 & 0.075 & 0.879 & 61 \\
 \bottomrule
 \end{tabular}
 \end{table}
