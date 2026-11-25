@@ -1,0 +1,47 @@
+{
+  "alpha": 0.1,
+  "patches": {
+    "rot_centrum": {
+      "plantings": 0.9179590436997844,
+      "plantings_non_baseline": 0.9169424603174603,
+      "optimised": 0.8913793045466775,
+      "optimised_linear": 0.8827623083131557,
+      "optimised_by_hour_min": 0.8271872477804681,
+      "n_optimised_layouts": 1416
+    },
+    "rot_kop_van_zuid": {
+      "plantings": 0.8941472336534065,
+      "plantings_non_baseline": 0.8928293832823649,
+      "optimised": 0.816102508508217,
+      "optimised_linear": 0.7912272327664784,
+      "optimised_by_hour_min": 0.7170914033299355,
+      "n_optimised_layouts": 315
+    },
+    "rot_oude_westen": {
+      "plantings": 0.8602885815361448,
+      "plantings_non_baseline": 0.8585421888053467,
+      "optimised": 0.787366564559547,
+      "optimised_linear": 0.7733619763694952,
+      "optimised_by_hour_min": 0.7258145363408521,
+      "n_optimised_layouts": 315
+    },
+    "xfer_freiburg_altstadt": {
+      "plantings": 0.8957539737176251,
+      "plantings_non_baseline": 0.894454770755886,
+      "optimised": 0.8380477042806659,
+      "optimised_linear": 0.8033368737829705,
+      "optimised_by_hour_min": 0.7632973387620228,
+      "n_optimised_layouts": 315
+    }
+  },
+  "pooled": {
+    "plantings": 0.8980982492807571,
+    "plantings_non_baseline": 0.8968299479971167,
+    "optimised": 0.868448043277926,
+    "optimised_linear": 0.8541619076728386
+  },
+  "q_gnn_by_hour_range": [
+    0.04071807861328125,
+    0.30417633056640625
+  ]
+}

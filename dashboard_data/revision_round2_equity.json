@@ -1,0 +1,605 @@
+{
+  "districts": "2 x 2 quadrants of the 500 m core, split at the core's centre; each segment is assigned to the quadrant of its receptors' centroid",
+  "patches": {
+    "rot_centrum": {
+      "population_proxy": {
+        "0": 468274.0,
+        "1": 226131.0,
+        "2": 310206.0,
+        "3": 287009.0
+      },
+      "rows": [
+        {
+          "budget": 12,
+          "theil_change_pct": -1.6898191973527281,
+          "cooling_kept_pct": 92.08778378900506,
+          "per_capita_dose_none": [
+            0.006861365211682667,
+            0.01807038349475346,
+            0.009610434545293095,
+            0.01007324587676541
+          ],
+          "reduction_pct_greedy": [
+            3.2155071261973536,
+            0.3864012284475579,
+            0.4342915432996055,
+            0.7377781262211545
+          ],
+          "reduction_pct_equity": [
+            2.715778434688466,
+            0.6781950399403617,
+            1.4255772491980525e-06,
+            0.9087878900909437
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.29179381149280376,
+          "gain_lowest_pp": -0.49972869150888766,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 25,
+          "theil_change_pct": -0.9902935013524518,
+          "cooling_kept_pct": 93.24202702078138,
+          "per_capita_dose_none": [
+            0.006861365211682667,
+            0.01807038349475346,
+            0.009610434545293095,
+            0.01007324587676541
+          ],
+          "reduction_pct_greedy": [
+            4.257578369892053,
+            1.8300278757164112,
+            0.9436365887786671,
+            1.555313353613412
+          ],
+          "reduction_pct_equity": [
+            3.9827230034997294,
+            1.9721546132894545,
+            0.778641935771441,
+            1.1646018793698931
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.14212673757304328,
+          "gain_lowest_pp": -0.2748553663923232,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 50,
+          "theil_change_pct": -2.8157950656226283,
+          "cooling_kept_pct": 90.12176730254443,
+          "per_capita_dose_none": [
+            0.006861365211682667,
+            0.01807038349475346,
+            0.009610434545293095,
+            0.01007324587676541
+          ],
+          "reduction_pct_greedy": [
+            5.394731802022484,
+            3.149588493428818,
+            2.7705165668173146,
+            2.2489218177839283
+          ],
+          "reduction_pct_equity": [
+            4.481897464394937,
+            3.4844774125783755,
+            1.982529108856891,
+            2.066267560015982
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.33488891914955765,
+          "gain_lowest_pp": -0.9128343376275474,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 75,
+          "theil_change_pct": -3.1002436726908065,
+          "cooling_kept_pct": 90.04594291456708,
+          "per_capita_dose_none": [
+            0.006861365211682667,
+            0.01807038349475346,
+            0.009610434545293095,
+            0.01007324587676541
+          ],
+          "reduction_pct_greedy": [
+            6.507919582033789,
+            4.420137475939419,
+            3.242938211103975,
+            2.248964899429333
+          ],
+          "reduction_pct_equity": [
+            5.146542695751084,
+            4.564333367620259,
+            2.5734915016177053,
+            2.3498959459901916
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.14419589168084013,
+          "gain_lowest_pp": -1.3613768862827058,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 100,
+          "theil_change_pct": -3.877235648930139,
+          "cooling_kept_pct": 90.4965118042006,
+          "per_capita_dose_none": [
+            0.006861365211682667,
+            0.01807038349475346,
+            0.009610434545293095,
+            0.01007324587676541
+          ],
+          "reduction_pct_greedy": [
+            6.917547516798298,
+            4.857800744735312,
+            4.111279133586607,
+            2.8251203252029224
+          ],
+          "reduction_pct_equity": [
+            5.029242638927673,
+            4.999136396550215,
+            3.885956656418257,
+            2.901759092870622
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.14133565181490315,
+          "gain_lowest_pp": -1.8883048778706248,
+          "any_district_worse_than_none": false
+        }
+      ]
+    },
+    "rot_kop_van_zuid": {
+      "population_proxy": {
+        "0": 372091.0,
+        "1": 145862.0,
+        "2": 55971.0,
+        "3": 229157.0
+      },
+      "rows": [
+        {
+          "budget": 12,
+          "theil_change_pct": -0.860616676182367,
+          "cooling_kept_pct": 92.75112936295298,
+          "per_capita_dose_none": [
+            0.007706125693811065,
+            0.007548879705335646,
+            0.02786207705763695,
+            0.015804132160202752
+          ],
+          "reduction_pct_greedy": [
+            1.076387433127381,
+            0.04057573779267871,
+            0.12035874759261973,
+            2.4698116946590845
+          ],
+          "reduction_pct_equity": [
+            0.5780803373497702,
+            0.0004173221125238499,
+            0.12034553080243929,
+            2.631094903441263
+          ],
+          "highest_dose_district": 2,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": -1.3216790180445304e-05,
+          "gain_lowest_pp": -0.04015841568015486,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 25,
+          "theil_change_pct": 0.0,
+          "cooling_kept_pct": 100.0,
+          "per_capita_dose_none": [
+            0.007706125693811065,
+            0.007548879705335646,
+            0.02786207705763695,
+            0.015804132160202752
+          ],
+          "reduction_pct_greedy": [
+            2.0340928528556788,
+            0.048072817451542,
+            1.8514737472110228,
+            3.254330807852043
+          ],
+          "reduction_pct_equity": [
+            2.0340928528556788,
+            0.048072817451542,
+            1.8514737472110228,
+            3.254330807852043
+          ],
+          "highest_dose_district": 2,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 0.0,
+          "gain_lowest_pp": 0.0,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 50,
+          "theil_change_pct": -3.385519766967897,
+          "cooling_kept_pct": 92.02871328310522,
+          "per_capita_dose_none": [
+            0.007706125693811065,
+            0.007548879705335646,
+            0.02786207705763695,
+            0.015804132160202752
+          ],
+          "reduction_pct_greedy": [
+            2.802683960202599,
+            0.07307684691618481,
+            3.6147049175910206,
+            5.218414524571554
+          ],
+          "reduction_pct_equity": [
+            1.6818796800725255,
+            0.03684789513014007,
+            5.2235487184337615,
+            4.7053464220750545
+          ],
+          "highest_dose_district": 2,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 1.6088438008427408,
+          "gain_lowest_pp": -0.03622895178604474,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 75,
+          "theil_change_pct": -4.999096735661939,
+          "cooling_kept_pct": 90.0610493620105,
+          "per_capita_dose_none": [
+            0.007706125693811065,
+            0.007548879705335646,
+            0.02786207705763695,
+            0.015804132160202752
+          ],
+          "reduction_pct_greedy": [
+            3.995666398407408,
+            0.4147645658431815,
+            5.244410992514717,
+            6.145402490021924
+          ],
+          "reduction_pct_equity": [
+            1.8133232979472935,
+            0.1575429444970872,
+            6.309080060892457,
+            6.33081752622797
+          ],
+          "highest_dose_district": 2,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 1.0646690683777402,
+          "gain_lowest_pp": -0.2572216213460943,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 100,
+          "theil_change_pct": -2.761643089410556,
+          "cooling_kept_pct": 93.11371670596169,
+          "per_capita_dose_none": [
+            0.007706125693811065,
+            0.007548879705335646,
+            0.02786207705763695,
+            0.015804132160202752
+          ],
+          "reduction_pct_greedy": [
+            5.0402678155669385,
+            0.7958881249335892,
+            6.747998400475381,
+            6.808808413741812
+          ],
+          "reduction_pct_equity": [
+            3.7114494145156027,
+            0.526581200370629,
+            7.156841383954532,
+            6.806282934706322
+          ],
+          "highest_dose_district": 2,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 0.4088429834791514,
+          "gain_lowest_pp": -0.2693069245629601,
+          "any_district_worse_than_none": false
+        }
+      ]
+    },
+    "rot_oude_westen": {
+      "population_proxy": {
+        "0": 108168.0,
+        "1": 65356.0,
+        "2": 119670.0,
+        "3": 108331.0
+      },
+      "rows": [
+        {
+          "budget": 12,
+          "theil_change_pct": -1.573981026942408,
+          "cooling_kept_pct": 91.30974558308067,
+          "per_capita_dose_none": [
+            0.014779616762079423,
+            0.029445079436360325,
+            0.015269695514794294,
+            0.019760021911057565
+          ],
+          "reduction_pct_greedy": [
+            0.9432945428001849,
+            0.49235484512351224,
+            2.052582148560593,
+            5.319919777269049
+          ],
+          "reduction_pct_equity": [
+            0.4143666948307261,
+            0.7232151012072289,
+            2.052582036613758,
+            4.79312756800067
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.23086025608371663,
+          "gain_lowest_pp": -0.5289278479694588,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 25,
+          "theil_change_pct": -1.6307936241693533,
+          "cooling_kept_pct": 94.74956002875268,
+          "per_capita_dose_none": [
+            0.014779616762079423,
+            0.029445079436360325,
+            0.015269695514794294,
+            0.019760021911057565
+          ],
+          "reduction_pct_greedy": [
+            2.2106443038186048,
+            3.397015918456499,
+            3.9272940192116192,
+            5.544473094739413
+          ],
+          "reduction_pct_equity": [
+            1.615535428825838,
+            3.4318467805550927,
+            3.5944364336781613,
+            5.527589262029541
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.03483086209859376,
+          "gain_lowest_pp": -0.5951088749927669,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 50,
+          "theil_change_pct": -3.5620161844883054,
+          "cooling_kept_pct": 92.24515337239416,
+          "per_capita_dose_none": [
+            0.014779616762079423,
+            0.029445079436360325,
+            0.015269695514794294,
+            0.019760021911057565
+          ],
+          "reduction_pct_greedy": [
+            3.5343102126229393,
+            5.541403286891391,
+            6.7007773528667975,
+            6.436801254694619
+          ],
+          "reduction_pct_equity": [
+            3.1062171966445113,
+            5.689991553803461,
+            5.357191355246431,
+            6.236113491216702
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.1485882669120695,
+          "gain_lowest_pp": -0.42809301597842797,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 75,
+          "theil_change_pct": -8.159452914067138,
+          "cooling_kept_pct": 92.50401744298581,
+          "per_capita_dose_none": [
+            0.014779616762079423,
+            0.029445079436360325,
+            0.015269695514794294,
+            0.019760021911057565
+          ],
+          "reduction_pct_greedy": [
+            4.542866332583169,
+            6.875295509329945,
+            7.088389223504958,
+            7.269116131909777
+          ],
+          "reduction_pct_equity": [
+            4.4203205363998475,
+            7.702633060501549,
+            4.113314577003746,
+            7.440404564080853
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": 0.8273375511716043,
+          "gain_lowest_pp": -0.12254579618332162,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 100,
+          "theil_change_pct": -3.318219808751535,
+          "cooling_kept_pct": 91.11109548053702,
+          "per_capita_dose_none": [
+            0.014779616762079423,
+            0.029445079436360325,
+            0.015269695514794294,
+            0.019760021911057565
+          ],
+          "reduction_pct_greedy": [
+            5.398755911346947,
+            8.29479241143663,
+            7.091556912364359,
+            7.830509057828154
+          ],
+          "reduction_pct_equity": [
+            3.828101485806134,
+            8.001982214016346,
+            6.174713510926196,
+            7.794021365912518
+          ],
+          "highest_dose_district": 1,
+          "lowest_dose_district": 0,
+          "gain_highest_pp": -0.2928101974202839,
+          "gain_lowest_pp": -1.5706544255408126,
+          "any_district_worse_than_none": false
+        }
+      ]
+    },
+    "xfer_freiburg_altstadt": {
+      "population_proxy": {
+        "0": 132839.0,
+        "1": 217869.0,
+        "2": 130468.0,
+        "3": 115072.0
+      },
+      "rows": [
+        {
+          "budget": 12,
+          "theil_change_pct": -0.9068759833730822,
+          "cooling_kept_pct": 97.49430144500596,
+          "per_capita_dose_none": [
+            0.03424564853541202,
+            0.014199324133978298,
+            0.03379035192200493,
+            0.04087445884911587
+          ],
+          "reduction_pct_greedy": [
+            0.8650517975936097,
+            1.663714814529174,
+            1.0231589025137438,
+            1.4237219235173106
+          ],
+          "reduction_pct_equity": [
+            0.4884533322701646,
+            1.3293986582379538,
+            1.0231593598979487,
+            1.8997613604098602
+          ],
+          "highest_dose_district": 3,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 0.4760394368925496,
+          "gain_lowest_pp": -0.33431615629122025,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 25,
+          "theil_change_pct": -1.1587527047639297,
+          "cooling_kept_pct": 91.89282432196731,
+          "per_capita_dose_none": [
+            0.03424564853541202,
+            0.014199324133978298,
+            0.03379035192200493,
+            0.04087445884911587
+          ],
+          "reduction_pct_greedy": [
+            2.1794426824088666,
+            2.354670285154324,
+            1.8849121975825498,
+            2.6411367279142115
+          ],
+          "reduction_pct_equity": [
+            1.954847206283677,
+            1.654924545798242,
+            1.9046918382539042,
+            2.646257597923358
+          ],
+          "highest_dose_district": 3,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 0.005120870009146294,
+          "gain_lowest_pp": -0.6997457393560822,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 50,
+          "theil_change_pct": -2.910861024283494,
+          "cooling_kept_pct": 93.50732366305515,
+          "per_capita_dose_none": [
+            0.03424564853541202,
+            0.014199324133978298,
+            0.03379035192200493,
+            0.04087445884911587
+          ],
+          "reduction_pct_greedy": [
+            2.9592998976642377,
+            4.254612923628977,
+            3.4683194181375328,
+            4.621330850140095
+          ],
+          "reduction_pct_equity": [
+            2.8997126056795346,
+            2.748291247678787,
+            3.3394558873926363,
+            4.91185021835811
+          ],
+          "highest_dose_district": 3,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": 0.29051936821801494,
+          "gain_lowest_pp": -1.5063216759501898,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 75,
+          "theil_change_pct": -5.059245476654789,
+          "cooling_kept_pct": 92.79705092008886,
+          "per_capita_dose_none": [
+            0.03424564853541202,
+            0.014199324133978298,
+            0.03379035192200493,
+            0.04087445884911587
+          ],
+          "reduction_pct_greedy": [
+            4.149555094507573,
+            5.508141764395239,
+            4.217333268856898,
+            5.886237117816824
+          ],
+          "reduction_pct_equity": [
+            4.856073040690147,
+            2.718767191130267,
+            4.414650211187189,
+            5.593851356998411
+          ],
+          "highest_dose_district": 3,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": -0.29238576081841305,
+          "gain_lowest_pp": -2.789374573264972,
+          "any_district_worse_than_none": false
+        },
+        {
+          "budget": 100,
+          "theil_change_pct": -4.448369601232602,
+          "cooling_kept_pct": 91.73012536168312,
+          "per_capita_dose_none": [
+            0.03424564853541202,
+            0.014199324133978298,
+            0.03379035192200493,
+            0.04087445884911587
+          ],
+          "reduction_pct_greedy": [
+            5.5412510996383375,
+            6.136833697040884,
+            5.136938733172855,
+            6.345576198798718
+          ],
+          "reduction_pct_equity": [
+            5.35945275543926,
+            3.6145994815722786,
+            5.423662951737729,
+            6.21162409231841
+          ],
+          "highest_dose_district": 3,
+          "lowest_dose_district": 1,
+          "gain_highest_pp": -0.13395210648030798,
+          "gain_lowest_pp": -2.5222342154686053,
+          "any_district_worse_than_none": false
+        }
+      ]
+    }
+  }
+}

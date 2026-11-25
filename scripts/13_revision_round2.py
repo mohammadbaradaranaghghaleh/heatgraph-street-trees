@@ -352,16 +352,44 @@ def part_seeds(ctx):
     write("seeds", out)
 
 
+# --------------------------------------------------------------------------- dashboard layouts
+def part_layouts(ctx):
+    """Practitioner-heuristic layouts at each budget with their engine UTCI, for the dashboard maps.
+    Writes data/stage5/<patch>/heuristic_layouts.npz and checks the dose reductions against
+    revision_r2r3.json (the numbers in Table 4)."""
+    for pid in TEST:
+        P = ctx.patch(pid)
+        r, z = stage5(pid)
+        budgets = r["budgets"]
+        rev = json.loads((OUT / pid / "revision_r2r3.json").read_text())
+        names, X = [], []
+        for m, use_flow in (("heur_sunflow", True), ("heur_sun", False)):
+            path = ctx.rv.heuristic_path(P["s"], P["sg"], P["flow_e"], budgets[-1], use_flow)
+            for b in budgets:
+                names.append(f"{m}_{b}")
+                X.append(path[b - 1])
+        X = np.vstack([np.zeros(P["K"], int)] + X)
+        eng, seg = ctx.engine(P)
+        dose, _, U = ctx.bm.engine_eval(eng, P["s"], seg, X, ctx.args(P))
+        ref = {r_["design"]: r_["engine_dose_reduction_pct"] for r_ in rev["rows"]}
+        for i, n in enumerate(names, 1):
+            got = 100 * (dose[0] - dose[i]) / dose[0]
+            assert abs(got - ref[n]) < 1e-6, f"{pid} {n}: {got} vs {ref[n]}"
+        np.savez_compressed(OUT / pid / "heuristic_layouts.npz", names=np.array(["none"] + names), X=X,
+                            engine_utci=U.astype(np.float32))
+        print(f"{pid}: {len(names)} heuristic layouts, doses match Table 4", flush=True)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--part", action="append", choices=["coverage", "equity", "sensitivity", "seeds"])
+    ap.add_argument("--part", action="append", choices=["coverage", "equity", "sensitivity", "seeds", "layouts"])
     a = ap.parse_args(argv)
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    parts = a.part or ["coverage", "equity", "sensitivity", "seeds"]
+    parts = a.part or ["coverage", "equity", "sensitivity", "seeds", "layouts"]
     ctx = Ctx(need_gnn=any(p != "equity" for p in parts))
     for p in parts:
         {"coverage": part_coverage, "equity": part_equity, "sensitivity": part_sensitivity,
-         "seeds": part_seeds}[p](ctx)
+         "seeds": part_seeds, "layouts": part_layouts}[p](ctx)
     return 0
 
 

@@ -1,0 +1,139 @@
+{
+  "patch": "rot_centrum",
+  "affected_threshold_c": -0.05,
+  "mask": "segment-hours where SOLWEIG dUTCI < -0.05 C (common to all models)",
+  "designs": {
+    "low_budget": {
+      "trees": 25,
+      "n_segment_hours": 12600,
+      "n_affected_solweig_mask": 2831,
+      "solweig": {
+        "mean_dUTCI_common_mask": -0.6255205161830049,
+        "mean_dUTCI_all": -0.14508434008038235,
+        "n_affected_own": 2831,
+        "peak_cooling": -5.923482894897461
+      },
+      "engine": {
+        "mean_dUTCI_common_mask": -0.5902259062642724,
+        "mean_dUTCI_all": -0.13267236028398785,
+        "n_affected_own": 895,
+        "peak_cooling": -7.251077651977539,
+        "bias_common_mask": 0.03529460991873248,
+        "mae_common_mask": 0.23775332203942195,
+        "bias_strong_cooling": -0.3886483965421978,
+        "bias_weak_cooling": 0.12076699025359745,
+        "spread_ratio_vs_solweig": 0.3161427057576828
+      },
+      "gnn": {
+        "mean_dUTCI_common_mask": -0.6036218712583358,
+        "mean_dUTCI_all": -0.13670586268107096,
+        "n_affected_own": 1020,
+        "peak_cooling": -7.408733367919922,
+        "bias_common_mask": 0.02189864492466912,
+        "mae_common_mask": 0.26363851425294865,
+        "bias_strong_cooling": -0.3132905297530325,
+        "bias_weak_cooling": 0.0894771075613025,
+        "spread_ratio_vs_solweig": 0.3602967149417167
+      }
+    },
+    "knee": {
+      "trees": 37,
+      "n_segment_hours": 12600,
+      "n_affected_solweig_mask": 3688,
+      "solweig": {
+        "mean_dUTCI_common_mask": -0.6956251329558532,
+        "mean_dUTCI_all": -0.20848020704965742,
+        "n_affected_own": 3688,
+        "peak_cooling": -5.950075149536133
+      },
+      "engine": {
+        "mean_dUTCI_common_mask": -0.6434833325946667,
+        "mean_dUTCI_all": -0.18842992267911396,
+        "n_affected_own": 1255,
+        "peak_cooling": -7.251077651977539,
+        "bias_common_mask": 0.05214180036118646,
+        "mae_common_mask": 0.25698895516467973,
+        "bias_strong_cooling": -0.3536207731380019,
+        "bias_weak_cooling": 0.145196683883667,
+        "spread_ratio_vs_solweig": 0.34029284164859
+      },
+      "gnn": {
+        "mean_dUTCI_common_mask": -0.6547950089882874,
+        "mean_dUTCI_all": -0.1925386067042275,
+        "n_affected_own": 1399,
+        "peak_cooling": -7.408733367919922,
+        "bias_common_mask": 0.040830123967565836,
+        "mae_common_mask": 0.28413793890698613,
+        "bias_strong_cooling": -0.25749463813249457,
+        "bias_weak_cooling": 0.10924593607584636,
+        "spread_ratio_vs_solweig": 0.3793383947939262
+      }
+    },
+    "high_budget": {
+      "trees": 75,
+      "n_segment_hours": 12600,
+      "n_affected_solweig_mask": 6756,
+      "solweig": {
+        "mean_dUTCI_common_mask": -0.7725658656719382,
+        "mean_dUTCI_all": -0.41928973349313886,
+        "n_affected_own": 6756,
+        "peak_cooling": -6.074213027954102
+      },
+      "engine": {
+        "mean_dUTCI_common_mask": -0.658697701686229,
+        "mean_dUTCI_all": -0.3532132409110902,
+        "n_affected_own": 2346,
+        "peak_cooling": -7.251010894775391,
+        "bias_common_mask": 0.11386816398570918,
+        "mae_common_mask": 0.2792253708825301,
+        "bias_strong_cooling": -0.15762402312924165,
+        "bias_weak_cooling": 0.1839404491516909,
+        "spread_ratio_vs_solweig": 0.347246891651865
+      },
+      "gnn": {
+        "mean_dUTCI_common_mask": -0.6503118302710597,
+        "mean_dUTCI_all": -0.3502363315461174,
+        "n_affected_own": 2529,
+        "peak_cooling": -7.407215118408203,
+        "bias_common_mask": 0.12225403540087847,
+        "mae_common_mask": 0.32335877376170186,
+        "bias_strong_cooling": 0.0072094007659956145,
+        "bias_weak_cooling": 0.15194711987088735,
+        "spread_ratio_vs_solweig": 0.3743339253996448
+      }
+    },
+    "max_cooling": {
+      "trees": 100,
+      "n_segment_hours": 12600,
+      "n_affected_solweig_mask": 7837,
+      "solweig": {
+        "mean_dUTCI_common_mask": -0.7981067673046857,
+        "mean_dUTCI_all": -0.500764384042649,
+        "n_affected_own": 7837,
+        "peak_cooling": -6.074213027954102
+      },
+      "engine": {
+        "mean_dUTCI_common_mask": -0.6692065260491536,
+        "mean_dUTCI_all": -0.41626434795440187,
+        "n_affected_own": 2836,
+        "peak_cooling": -7.251010894775391,
+        "bias_common_mask": 0.12890024125553204,
+        "mae_common_mask": 0.28988624802502166,
+        "bias_strong_cooling": -0.12486182869254768,
+        "bias_weak_cooling": 0.19887793073820287,
+        "spread_ratio_vs_solweig": 0.3618731657522011
+      },
+      "gnn": {
+        "mean_dUTCI_common_mask": -0.6676471557364075,
+        "mean_dUTCI_all": -0.4167973560757107,
+        "n_affected_own": 3048,
+        "peak_cooling": -7.407314300537109,
+        "bias_common_mask": 0.13045961156827812,
+        "mae_common_mask": 0.33835780591673886,
+        "bias_strong_cooling": 0.011773028368088544,
+        "bias_weak_cooling": 0.16318874585789578,
+        "spread_ratio_vs_solweig": 0.38892433329080006
+      }
+    }
+  }
+}

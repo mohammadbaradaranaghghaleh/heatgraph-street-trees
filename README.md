@@ -45,7 +45,7 @@ python -m venv .venv
 pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu    # or .../whl/cu130 for a GPU
 pip install -r requirements.txt
 # download heatgraph-data-<date>.zip from <DATA_DOI> and extract it here (it creates data/...)
-python scripts/make_release_archive.py --verify    # SHA-256 check of all 211 released files
+python scripts/make_release_archive.py --verify    # SHA-256 check of all 215 released files
 python reproduce.py                                 # regenerate + compare all 7 figures and 7 tables
 ```
 
@@ -74,7 +74,7 @@ pip install -r dashboard/requirements.txt     # streamlit, altair, matplotlib, n
 streamlit run app.py                          # opens http://localhost:8501
 ```
 
-It reads only `dashboard_data/` (17.5 MB, versioned) and `tables/*.csv`. `dashboard_data/` is a
+It reads only `dashboard_data/` (17.8 MB, versioned) and `tables/*.csv`. `dashboard_data/` is a
 compact extract of the released results, built by `scripts/build_dashboard_data.py`: tree-induced
 UTCI changes are stored at 0.001 °C resolution instead of the full float arrays. For Streamlit
 Community Cloud, deploy `dashboard/streamlit_app.py`. It runs `app.py` unchanged, and its folder holds
@@ -84,14 +84,19 @@ The dashboard is read-only and shows the same results as the paper. Choose a tes
 patches or Freiburg), a planting budget, an hour, and two methods to compare. The tabs are:
 
 - **Placements**: side-by-side maps of new trees and per-segment ΔUTCI for NSGA-III (GNN), NSGA-III
-  (linear), greedy and random layouts, with dose reduction, Theil index and tree count.
-- **Benchmark**: dose reduction against budget for each method, with the random spread.
+  (linear), greedy, the two practitioner rules (sun × flow, sun only) and random layouts, with dose
+  reduction, Theil index and tree count.
+- **Benchmark**: dose reduction against budget for each method, including the practitioner rules and
+  NSGA-III without greedy seeding, with the random spread, each rule's share of greedy's reduction and the
+  hypervolume of the unseeded front.
 - **Pareto front & equity**: the cooling–equity front coloured by Theil index. Pick a layout (maximum
   cooling, most equal at ≥ 90 % of greedy cooling, or any by id) to see its map and its change against greedy.
+  Below, the per-district dose reductions of greedy and the equity-selected layout.
 - **SOLWEIG check**: Rotterdam Centrum only. SOLWEIG-GPU, engine and GNN cooling maps for the
-  verified Pareto designs.
-- **Data & models**: the study patches, engine validation, surrogate comparison and SOLWEIG
-  verification tables.
+  verified Pareto designs, with mean cooling on a common mask and the engine's local over-prediction.
+- **Robustness**: the sensitivity analysis (Table 7, plus this patch per setting), coverage of the
+  conformal margin, and NSGA-III results over five random seeds.
+- **Data & models**: all seven tables of the paper.
 
 A headless test of the dashboard is in `tests/test_dashboard.py`.
 
