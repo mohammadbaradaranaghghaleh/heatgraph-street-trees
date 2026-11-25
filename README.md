@@ -36,7 +36,7 @@ Allow about 5 minutes for setup and under 1 minute to run, on CPU. This needs Py
 data archive.
 
 ```bash
-git clone <REPOSITORY_URL> heatgraph && cd heatgraph          # TODO(authors): repository URL
+git clone https://github.com/mohammadbaradaranaghghaleh/heatgraph-street-trees.git heatgraph && cd heatgraph
 python -m venv .venv
 # Windows: .venv\Scripts\activate      Linux/macOS: source .venv/bin/activate
 pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu    # or .../whl/cu130 for a GPU
@@ -64,11 +64,20 @@ including `torch==2.14.1+cu130`.
 
 ## Interactive dashboard
 
+The dashboard runs from a plain clone: no data archive, GPU or PyTorch needed.
+
 ```bash
-streamlit run app.py          # opens http://localhost:8501
+pip install -r dashboard/requirements.txt     # streamlit, altair, matplotlib, numpy, pandas
+streamlit run app.py                          # opens http://localhost:8501
 ```
 
-The dashboard is read-only and uses the same released results. Choose a test patch (three Rotterdam
+It reads only `dashboard_data/` (17.5 MB, versioned) and `tables/*.csv`. `dashboard_data/` is a
+compact extract of the released results, built by `scripts/build_dashboard_data.py`: tree-induced
+UTCI changes are stored at 0.001 °C resolution instead of the full float arrays. For Streamlit
+Community Cloud, deploy `dashboard/streamlit_app.py`. It runs `app.py` unchanged, and its folder holds
+the light `dashboard/requirements.txt`, so the cloud build skips the full pipeline dependencies.
+
+The dashboard is read-only and shows the same results as the paper. Choose a test patch (three Rotterdam
 patches or Freiburg), a planting budget, an hour, and two methods to compare. The tabs are:
 
 - **Placements**: side-by-side maps of new trees and per-segment ΔUTCI for NSGA-III (GNN), NSGA-III
@@ -89,6 +98,8 @@ A headless test of the dashboard is in `tests/test_dashboard.py`.
 heatgraph/
 ├── reproduce.py              single-command reproduction and verification
 ├── app.py                    Streamlit dashboard
+├── dashboard/                Streamlit Community Cloud entrypoint + light requirements
+├── dashboard_data/           compact results read by the dashboard (scripts/build_dashboard_data.py)
 ├── requirements.txt          pinned top-level dependencies (Python 3.11)
 ├── requirements-lock.txt     full environment used for the paper
 ├── environment-solweig.yml   conda env for the SOLWEIG-GPU reference model (only for full re-runs)

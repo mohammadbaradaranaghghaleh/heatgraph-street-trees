@@ -200,10 +200,10 @@ with tab2:
         x=alt.X("share:Q", title="Trees (% of candidate slots)"),
         y=alt.Y("mean:Q", title="Engine-verified heat-dose reduction (%)"), color=color,
         tooltip=["Method", alt.Tooltip("share:Q", format=".0f"), alt.Tooltip("mean:Q", format=".2f")])
-    st.altair_chart((band + lines).properties(height=380), use_container_width=True)
+    st.altair_chart((band + lines).properties(height=380), width="stretch")
     piv = r.groupby(["budget", "method"])["engine_dose_reduction_pct"].mean().unstack()[list(METHODS)]
     piv.columns = [METHODS[c] for c in piv.columns]
-    st.dataframe(piv.style.format("{:.2f}"), use_container_width=True)
+    st.dataframe(piv.style.format("{:.2f}"), width="stretch")
     st.caption("Random = mean of 10 layouts (band: range). NSGA-III and greedy largely coincide; see the paper, "
                "Section 4.4.")
 
@@ -218,7 +218,7 @@ with tab3:
                  alt.Tooltip("engine_theil:Q", format=".4f")])
     left, right = st.columns([1.2, 1])
     with left:
-        st.altair_chart(sc.properties(height=420).interactive(), use_container_width=True)
+        st.altair_chart(sc.properties(height=420).interactive(), width="stretch")
         st.caption("NSGA-III (GNN) front, engine-verified. Darker = more equal between districts (population proxy).")
     with right:
         sub = F[F["trees"] <= budget]
@@ -243,7 +243,7 @@ with tab3:
                   delta_color="inverse")
     t5 = load_table("T5_equity")
     if t5 is not None:
-        st.dataframe(t5[t5["Patch"] == PATCHES[pid]], use_container_width=True, hide_index=True)
+        st.dataframe(t5[t5["Patch"] == PATCHES[pid]], width="stretch", hide_index=True)
 
 with tab4:
     S = load_solweig()
@@ -275,4 +275,4 @@ with tab5:
         t = load_table(name)
         if t is not None:
             st.markdown(f"**{cap}**")
-            st.dataframe(t, use_container_width=True, hide_index=True)
+            st.dataframe(t, width="stretch", hide_index=True)
